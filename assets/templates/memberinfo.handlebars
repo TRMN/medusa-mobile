@@ -1,0 +1,167 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-12 text-center">
+            <h4 class="medusa-yellow">{{userinfo.greeting}}</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 text-center">
+            <span>{{userinfo.member_id}}</span>
+        </div>
+    </div>
+
+    <div id="accordian" class="panel-group">
+        <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="headingAssignments">
+                <h4 class="panel-title"><a role="button" data-toggle="collapse" data-parent="#accordian"
+                                           href="#assignments" aria-expanded="true" aria-controls="#assignments">Assignments</a>
+                </h4>
+            </div>
+            <div id="assignments" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingAssignments">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-xs-12 text-center">
+                            <span>{{userinfo.assignment.primary.billet}}</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 text-center">
+                            <span>{{userinfo.assignment.primary.chapter_name}}</span>
+                        </div>
+                    </div>
+
+                    {{#each userinfo.assignment}}
+                        {{#unless this.primary}}
+                            <div class="row">
+                                <div class="col-xs-12 text-left">
+                                    <span>{{this.chapter_name}}, {{this.billet}}</span>
+                                </div>
+                            </div>
+                        {{/unless}}
+                    {{else}}
+                        <div class="row">
+                            <div class="col-xs-12 text-left">
+                                <span>None</span>
+                            </div>
+                        </div>
+                    {{/each}}
+                </div>
+            </div>
+            <div class="panel-heading" role="tab" id="headingPeerages">
+                <h4 class="panel-title"><a role="button" data-toggle="collapse" data-parent="#accordian"
+                                           href="#peerages" aria-expanded="true" aria-controls="#peerages">Peerages</a>
+                </h4>
+            </div>
+            <div id="peerages" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingAssignments">
+                <div class="panel-body">
+                    {{#if userinfo.peerages}}
+                        {{#each userinfo.peerages}}
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <img src="{{../baseurl}}{{this.path}}"
+                                         class="center-block img-responsive img-circle filePhoto">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12 text-center">
+                                    {{this.fullTitle}}
+                                </div>
+                            </div>
+                        {{else}}
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    None
+                                </div>
+                            </div>
+                        {{/each}}
+                    {{/if}}
+                </div>
+            </div>
+            <div class="panel-heading" role="tab" id="headingCoursework">
+                <h4 class="panel-title"><a role="button" data-toggle="collapse" data-parent="#accordian"
+                                           href="#coursework" aria-expanded="true" aria-controls="#coursework">Coursework</a>
+                </h4>
+            </div>
+
+            <div id="coursework" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingCoursework">
+                <div class="panel-body">
+                    <!-- Start of course work -->
+                    {{#if userinfo.exams}}
+                        {{#each userinfo.exams as |academyInfo academy|}}
+                            <div class="panel-group" id="cwAccordian" role="tablist" aria-multiselectable="true">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading" role="tab" id="{{academy}}Heading">
+                                        <h4 class="panel-title small">
+                                            <a role="button" data-toggle="collapse" data-parent="#cwAccordian"
+                                               href="#{{academy}}"
+                                               aria-expanded="true" aria-controls="{{academy}}">
+                                                {{academyInfo.label}} {{#if academyInfo.new}}<span
+                                                    class="fi-burst-new size-30"></span>{{/if}}
+                                            </a>
+                                        </h4>
+                                    </div>
+
+                                    <div id="{{academy}}" class="collapse">
+                                        <div class="panel-body">
+                                            {{#each academyInfo.examlist as |examInfo examId|}}
+                                                <div class="row">
+                                                    <div class="col-xs-12 text-center">
+                                                        {{examId}}
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-xs-12 text-center">
+                                                        {{examInfo.name}}
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-xs-12 text-center">
+                                                        {{examInfo.score}} {{examInfo.date}}
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-xs-12">
+                                                        <hr>
+                                                    </div>
+                                                </div>
+                                            {{/each}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {{/each}}
+                    {{/if}}
+                    <!-- end of coursework -->
+                </div>
+            </div>
+
+            <div class="panel-heading" role="tab" id="headingTisTig">
+                <h4 class="panel-title"><a role="button" data-toggle="collapse" data-parent="#accordian"
+                                           href="#tistig" aria-expanded="true" aria-controls="#tistig">Time In
+                    Service / Time in Grade</a>
+                </h4>
+            </div>
+            <div id="tistig" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTisTig">
+                <div class="panel-body">
+                    <br/>
+                    <div class="row">
+                        <div class="col-xs-6 text-left">
+                            <span><strong>Time In Grade:</strong></span>
+                        </div>
+                        <div class="col-xs-6 text-left">
+                            <span id="tig">{{userinfo.tig}}</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6 text-left">
+                            <span><strong>Time In Service:</strong></span>
+                        </div>
+                        <div class="col-xs-6 text-left">
+                            <span id="tis">{{userinfo.tis}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -93,6 +93,7 @@ var app = {
                     router.navigate('home');
                 },
                 '*': function () {
+
                     var navTpl = Handlebars.templates.nav({homeIsActive: true});
                     var userInfo = $.jStorage.get('userInfo', false);
                     if (userInfo) {
@@ -104,7 +105,7 @@ var app = {
 
                         updateScreen(navTpl + logoTpl + bodyTpl);
                         bindLogin();
-                        
+
                         $('#login-form').validator();
                         console.log('Validator turned on');
                         $('#login-form').validator('update');
@@ -172,13 +173,16 @@ var app = {
                 var navTpl = Handlebars.templates.nav({profileIsActive: true});
                 var userInfo = $.jStorage.get('userInfo', false);
                 var photoTpl = '';
+                var baseUrl = $.jStorage.get('baseURL', 'https://medusa.trmn.org');
+
                 if (userInfo.filePhoto) {
-                    var path = $.jStorage.get('baseURL', 'https://medusa.trmn.org') + userInfo.filePhoto;
+                    var path = baseUrl + userInfo.filePhoto;
                     photoTpl = Handlebars.templates.photo({imgSrc: path});
                 }
                 userInfo.assignment = getAssignments();
                 var memberinfoTpl = Handlebars.templates.memberinfo({
-                    userinfo: userInfo
+                    userinfo: userInfo,
+                    baseurl: baseUrl
                 });
                 var bodyTpl = photoTpl + memberinfoTpl;
 
@@ -204,6 +208,7 @@ var app = {
                 profile.done(function (data) {
                     $.jStorage.set('userInfo', data);
                     console.log('User info retrieved and saved');
+                    getIdCard();
                     getTisTig();
                 });
                 profile.fail(function () {
@@ -212,6 +217,29 @@ var app = {
                     router.navigate('login');
                 });
 
+            }
+
+            function getIdCard() {
+                var oauth_confg = getOauthConfig();
+
+                var idcard = new FileTransfer();
+                var uri = encodeURI(oauth_confg.baseUrl + '/oauth/idcard?access_token=' + oauth_confg.access_token + "&client_id=" + oauth_confg.client_id + '&nocache=' + n)
+                console.log('Starting download of ' + uri);
+
+                idcard.download(
+                    uri,
+                    'cdvfile://localhost/persistent/medusa/idcard.png',
+                    function (entry) {
+                        console.log('Download complete: ' + entry.toURL());
+                        $.jStorage.set('idCardUri', entry.toURL());
+                    },
+                    function (error) {
+                        console.log("download error source " + error.source);
+                        console.log("download error target " + error.target);
+                        console.log("upload error code" + error.code);
+                    },
+                    false
+                );
             }
 
             function getLastUpdate() {
