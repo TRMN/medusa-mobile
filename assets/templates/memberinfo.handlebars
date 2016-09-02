@@ -47,6 +47,7 @@
                     {{/each}}
                 </div>
             </div>
+
             <div class="panel-heading" role="tab" id="headingPeerages">
                 <h4 class="panel-title"><a role="button" data-toggle="collapse" data-parent="#accordian"
                                            href="#peerages" aria-expanded="true" aria-controls="#peerages">Peerages</a>
@@ -77,6 +78,7 @@
                     {{/if}}
                 </div>
             </div>
+
             <div class="panel-heading" role="tab" id="headingCoursework">
                 <h4 class="panel-title"><a role="button" data-toggle="collapse" data-parent="#accordian"
                                            href="#coursework" aria-expanded="true" aria-controls="#coursework">Coursework</a>
@@ -87,9 +89,10 @@
                 <div class="panel-body">
                     <!-- Start of course work -->
                     {{#if userinfo.exams}}
-                        {{#each userinfo.exams as |academyInfo academy|}}
-                            <div class="panel-group" id="cwAccordian" role="tablist" aria-multiselectable="true">
-                                <div class="panel panel-default">
+                        <div class="panel-group" id="cwAccordian">
+                            <div class="panel panel-default">
+
+                                {{#each userinfo.exams as |academyInfo academy|}}
                                     <div class="panel-heading" role="tab" id="{{academy}}Heading">
                                         <h4 class="panel-title small">
                                             <a role="button" data-toggle="collapse" data-parent="#cwAccordian"
@@ -101,7 +104,7 @@
                                         </h4>
                                     </div>
 
-                                    <div id="{{academy}}" class="collapse">
+                                    <div id="{{academy}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="{{academy}}Heading">
                                         <div class="panel-body">
                                             {{#each academyInfo.examlist as |examInfo examId|}}
                                                 <div class="row">
@@ -127,9 +130,10 @@
                                             {{/each}}
                                         </div>
                                     </div>
-                                </div>
+
+                                {{/each}}
                             </div>
-                        {{/each}}
+                        </div>
                     {{/if}}
                     <!-- end of coursework -->
                 </div>

@@ -92,6 +92,9 @@ var app = {
                     $.jStorage.deleteKey('userInfo');
                     router.navigate('home');
                 },
+                'refresh': function () {
+                    getUserInfo();
+                },
                 '*': function () {
 
                     var navTpl = Handlebars.templates.nav({homeIsActive: true});
@@ -134,6 +137,7 @@ var app = {
             }
 
             function getTisTig() {
+                SpinnerPlugin.activityStart('Getting Time In Service / Time In Grade');
                 var oauth_confg = getOauthConfig();
 
                 $.support.cors = true;
@@ -190,6 +194,7 @@ var app = {
             }
 
             function getUserInfo() {
+                SpinnerPlugin.activityStart('Requesting User Info');
                 var oauth_confg = getOauthConfig();
 
                 $.support.cors = true;
@@ -208,7 +213,7 @@ var app = {
                 profile.done(function (data) {
                     $.jStorage.set('userInfo', data);
                     console.log('User info retrieved and saved');
-                    getIdCard();
+                    //getIdCard();
                     getTisTig();
                 });
                 profile.fail(function () {
@@ -220,6 +225,7 @@ var app = {
             }
 
             function getIdCard() {
+                SpinnerPlugin.activityStart('Downloading ID Card');
                 var oauth_confg = getOauthConfig();
 
                 var idcard = new FileTransfer();
@@ -243,6 +249,7 @@ var app = {
             }
 
             function getLastUpdate() {
+                SpinnerPlugin.activityStart('Checking for updates');
                 var oauth_confg = getOauthConfig();
 
                 $.support.cors = true;
@@ -288,6 +295,7 @@ var app = {
             }
 
             function refreshToken() {
+                SpinnerPlugin.activityStart('Refreshing authentication');
                 var oauth_config = getOauthConfig();
 
                 $.support.cors = true;
@@ -356,7 +364,7 @@ var app = {
                         return false;
                     } else {
                         e.preventDefault();
-                        SpinnerPlugin.activityStart('Please Wait');
+                        SpinnerPlugin.activityStart('Authenticating');
 
                         var oauth_config = getOauthConfig();
                         var username = $('#email-address').val();
