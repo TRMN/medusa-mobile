@@ -26,7 +26,26 @@ var app = {
     // Bind any events that are required on startup. Common events are:
     // 'load', 'deviceready', 'offline', and 'online'.
     bindEvents: function () {
-        //document.addEventListener('deviceready', this.onDeviceReady, false);
+        // window.addEventListener("orientationchange", function () {
+        //
+        //     var width = screen.width;
+        //     var height = screen.height;
+        //
+        //     switch (screen.orientation) {
+        //         case 'landscape':
+        //         case 'landscape-primary':
+        //         case 'landscape-secondary':
+        //             $('#idcard').css({'height' : height, 'width' : 'auto'});
+        //             break;
+        //         case 'portrait':
+        //         case 'portrait-primary':
+        //         case 'portrait-secondary':
+        //             $('#idcard').css({'height' : 'auto', 'width' : width});
+        //             break;
+        //
+        //     }
+        // });
+
         document.addEventListener('deviceready', function () {
             if (navigator.notification) { // Override default HTML alert with native dialog
                 window.alert = function (message) {
@@ -49,6 +68,8 @@ var app = {
 
             }
 
+            $("#idcard").panzoom();
+
             function onConfirm(buttonIndex) {
                 if (buttonIndex == 1) {
                     $.jStorage.set('baseURL', $('#server-url').val().toLowerCase());
@@ -66,7 +87,7 @@ var app = {
 
             router.on({
                 'about': function () {
-                    var AppVersion = '0.0.1';
+                    var AppVersion = '0.0.3';
                     var navTpl = Handlebars.templates.nav({aboutIsActive: true});
                     var aboutTpl = Handlebars.templates.about({version: AppVersion});
                     updateScreen(navTpl + logoTpl + aboutTpl);
@@ -90,10 +111,31 @@ var app = {
                 },
                 'logout': function () {
                     $.jStorage.deleteKey('userInfo');
+                    $.jStorage.deleteKey('idCardUri');
                     router.navigate('home');
                 },
                 'refresh': function () {
                     getUserInfo();
+                },
+                'idcard': function () {
+                    var navTpl = Handlebars.templates.nav({idCardIsActive: true});
+                    var idCardUri = $.jStorage.get('idCardUri', false);
+
+                    if (!idCardUri) {
+                        // No ID Card saved, fetch it
+                        getIdCard();
+
+                        idCardUri = $.jStorage.get('idCardUri', false);
+
+                        if (!idCardUri) {
+                            // If we still don't have a local URI for the idcard, something's wrong
+                            alert('Unable to show ID card at this time.');
+                            router.navigate('profile');
+                        }
+                    }
+                    var idCardTpl = Handlebars.templates.idcard({imgSrc: idCardUri});
+                    alert('Tab the ID Card to return to your profile');
+                    updateScreen(idCardTpl);
                 },
                 '*': function () {
 
@@ -213,7 +255,7 @@ var app = {
                 profile.done(function (data) {
                     $.jStorage.set('userInfo', data);
                     console.log('User info retrieved and saved');
-                    //getIdCard();
+                    getIdCard();
                     getTisTig();
                 });
                 profile.fail(function () {
@@ -226,26 +268,47 @@ var app = {
 
             function getIdCard() {
                 SpinnerPlugin.activityStart('Downloading ID Card');
-                var oauth_confg = getOauthConfig();
 
-                var idcard = new FileTransfer();
-                var uri = encodeURI(oauth_confg.baseUrl + '/oauth/idcard?access_token=' + oauth_confg.access_token + "&client_id=" + oauth_confg.client_id + '&nocache=' + n)
-                console.log('Starting download of ' + uri);
+                window.requestFileSystem(window.PERSISTENT, 1 * 1024 * 1204, function (fs) {
+                    console.log('File system open: ' + fs.name);
 
-                idcard.download(
-                    uri,
-                    'cdvfile://localhost/persistent/medusa/idcard.png',
-                    function (entry) {
-                        console.log('Download complete: ' + entry.toURL());
-                        $.jStorage.set('idCardUri', entry.toURL());
-                    },
-                    function (error) {
-                        console.log("download error source " + error.source);
-                        console.log("download error target " + error.target);
-                        console.log("upload error code" + error.code);
-                    },
-                    false
-                );
+                    fs.root.getFile('idcard.png', {create: true, exclusive: false}, function (fileEntry) {
+
+                        var oauth_confg = getOauthConfig();
+                        var currentTime = new Date();
+                        var n = currentTime.getTime();
+
+                        var uri = oauth_confg.baseUrl + '/oauth/idcard?access_token=' + oauth_confg.access_token + "&client_id=" + oauth_confg.client_id + '&nocache=' + n;
+                        console.log('Starting download of ' + uri);
+
+                        var idcard = new FileTransfer();
+                        console.log('FileTransfer Object instantiated');
+                        var fileURL = fileEntry.toURL();
+
+                        idcard.download(
+                            uri,
+                            fileURL,
+                            function (entry) {
+                                console.log('Download complete: ' + entry.toURL());
+                                $.jStorage.set('idCardUri', entry.toURL());
+                            },
+                            function (error) {
+                                console.log("download error source " + error.source);
+                                console.log("download error target " + error.target);
+                                console.log("upload error code" + error.code);
+                            },
+                            false
+                        );
+
+                    }, function () {
+                        alert('There was an error attempting to save the file');
+                        router.navigate('profile');
+                    });
+
+                }, function () {
+                    alert('There was an error attempting to save the file');
+                    router.navigate('profile');
+                });
             }
 
             function getLastUpdate() {

@@ -17,40 +17,40 @@
  * under the License.
  */
 * {
-    -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
 }
 
 body {
-    -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
-    -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
-    -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
-    background-color:#000000;
-    background-image:url(../img/trmn-subdued.png);
+    -webkit-touch-callout: none; /* prevent callout to copy image, etc when tap to hold */
+    -webkit-text-size-adjust: none; /* prevent webkit from resizing text to fit */
+    -webkit-user-select: none; /* prevent copy paste, to allow, change 'none' to 'text' */
+    background-color: #000000;
+    background-image: url(../img/trmn-subdued.png);
     background-size: 100%;
     background-repeat: no-repeat;
-    background-attachment:fixed;
+    background-attachment: fixed;
     background-position: center;
-    font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
-    font-size:12px;
-    height:100%;
-    margin:0px;
+    font-family: 'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    height: 100%;
+    margin: 0px;
     padding-top: 60px;
-    width:100%;
+    width: 100%;
     color: #ffffff;
 }
 
 h1 {
-    font-size:24px;
-    font-weight:normal;
-    margin:0px;
-    overflow:visible;
-    padding:0px;
-    text-align:center;
+    font-size: 24px;
+    font-weight: normal;
+    margin: 0px;
+    overflow: visible;
+    padding: 0px;
+    text-align: center;
     color: #ffffee;
 }
 
 .project-medusa {
-    content:url(../img/project-medusa.png);
+    content: url(../img/project-medusa.png);
 }
 
 .medusa-yellow {
@@ -62,13 +62,13 @@ h1 {
 }
 
 /*#tabs .nav-pills > li > a {*/
-  /*border-radius: 4px 4px 0 0 ;*/
+/*border-radius: 4px 4px 0 0 ;*/
 /*}*/
 
 /*#tabs .tab-content {*/
-  /*color : white;*/
-  /*!*background-color: #428bca;*!*/
-  /*padding : 5px 15px;*/
+/*color : white;*/
+/*!*background-color: #428bca;*!*/
+/*padding : 5px 15px;*/
 /*}*/
 
 .panel-body {
@@ -76,27 +76,27 @@ h1 {
 }
 
 .size-12 {
-  font-size: 12px;
+    font-size: 12px;
 }
 
 .size-14 {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 .size-16 {
-  font-size: 16px;
+    font-size: 16px;
 }
 
 .size-18 {
-  font-size: 18px;
+    font-size: 18px;
 }
 
 .size-21 {
-  font-size: 21px;
+    font-size: 21px;
 }
 
 .size-24 {
-  font-size: 24px;
+    font-size: 24px;
 }
 
 .size-30 {
@@ -104,17 +104,34 @@ h1 {
 }
 
 .size-36 {
-  font-size: 36px;
+    font-size: 36px;
 }
 
 .size-48 {
-  font-size: 48px;
+    font-size: 48px;
 }
 
 .size-60 {
-  font-size: 60px;
+    font-size: 60px;
 }
 
 .size-72 {
-  font-size: 72px;
+    font-size: 72px;
 }
+
+/* Portrait */
+@media screen and (orientation: portrait) {
+    .idcard {
+        width: 100%;
+    }
+
+}
+
+/* Landscape */
+@media screen and (orientation: landscape) {
+    .idcard {
+        width: auto;
+        height: 100%;
+    }
+}
+
