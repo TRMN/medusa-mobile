@@ -121,17 +121,24 @@ h1 {
 
 /* Portrait */
 @media screen and (orientation: portrait) {
-    .idcard {
+    #idcard {
         width: 100%;
+        height: auto;
     }
 
 }
 
 /* Landscape */
 @media screen and (orientation: landscape) {
-    .idcard {
+    #idcard {
         width: auto;
         height: 100%;
     }
 }
+
+a {
+    text-decoration: none;
+}
+
+
 

@@ -19,6 +19,7 @@
             </div>
             <div id="assignments" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingAssignments">
                 <div class="panel-body">
+                    <h4 class="medusa-yellow text-center">Primary Assignment</h4>
                     <div class="row">
                         <div class="col-xs-12 text-center">
                             <span>{{userinfo.assignment.primary.billet}}</span>
@@ -30,27 +31,25 @@
                         </div>
                     </div>
 
-                    {{#each userinfo.assignment}}
-                        {{#unless this.primary}}
-                            <div class="row">
-                                <div class="col-xs-12 text-left">
-                                    <span>{{this.chapter_name}}, {{this.billet}}</span>
+                    {{#if userinfo.assignment.secondary}}
+                        <h4 class="medusa-yellow">Additional Assignments</h4>
+                        {{#each userinfo.assignment}}
+                            {{#unless this.primary}}
+                                <div class="row">
+                                    <div class="col-xs-12 text-left">
+                                        <span>{{this.chapter_name}}, {{this.billet}}</span>
+                                    </div>
                                 </div>
-                            </div>
-                        {{/unless}}
-                    {{else}}
-                        <div class="row">
-                            <div class="col-xs-12 text-left">
-                                <span>None</span>
-                            </div>
-                        </div>
-                    {{/each}}
+                            {{/unless}}
+                        {{/each}}
+                    {{/if}}
                 </div>
             </div>
 
             <div class="panel-heading" role="tab" id="headingPeerages">
                 <h4 class="panel-title"><a role="button" data-toggle="collapse" data-parent="#accordian"
-                                           href="#peerages" aria-expanded="true" aria-controls="#peerages">Peerages</a>
+                                           href="#peerages" aria-expanded="true" aria-controls="#peerages">Peerages &
+                    Knighthoods</a>
                 </h4>
             </div>
             <div id="peerages" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingAssignments">
@@ -81,7 +80,8 @@
 
             <div class="panel-heading" role="tab" id="headingCoursework">
                 <h4 class="panel-title"><a role="button" data-toggle="collapse" data-parent="#accordian"
-                                           href="#coursework" aria-expanded="true" aria-controls="#coursework">Coursework</a>
+                                           href="#coursework" aria-expanded="true"
+                                           aria-controls="#coursework">Coursework</a>
                 </h4>
             </div>
 
@@ -104,7 +104,8 @@
                                         </h4>
                                     </div>
 
-                                    <div id="{{academy}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="{{academy}}Heading">
+                                    <div id="{{academy}}" class="panel-collapse collapse" role="tabpanel"
+                                         aria-labelledby="{{academy}}Heading">
                                         <div class="panel-body">
                                             {{#each academyInfo.examlist as |examInfo examId|}}
                                                 <div class="row">
