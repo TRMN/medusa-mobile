@@ -88,7 +88,7 @@ var app = {
                     $.support.cors = true;
 
                     var time = $.ajax({
-                        url: this.baseUrl + '/oauth/tistig?access_token=' + this.access_token + "&client_id=" + this.client_id + '&nocache=' + this.cache_buster,
+                        url: oauth.baseUrl + '/oauth/tistig?access_token=' + oauth.access_token + "&client_id=" + oauth.client_id + '&nocache=' + oauth.cache_buster(),
                         type: "GET",
                         crossDomain: true,
                         cache: false,
@@ -119,7 +119,7 @@ var app = {
                     $.support.cors = true;
 
                     var profile = $.ajax({
-                        url: this.baseUrl + '/oauth/user?access_token=' + this.access_token + "&client_id=" + this.client_id + '&nocache=' + this.cache_buster,
+                        url: oauth.baseUrl + '/oauth/user?access_token=' + oauth.access_token + "&client_id=" + oauth.client_id + '&nocache=' + oauth.cache_buster(),
                         type: "GET",
                         crossDomain: true,
                         cache: false,
@@ -143,7 +143,7 @@ var app = {
                         console.log('File system open: ' + fs.name);
 
                         fs.root.getFile('idcard.png', {create: true, exclusive: false}, function (fileEntry) {
-                            var uri = this.baseUrl + '/oauth/idcard?access_token=' + this.access_token + "&client_id=" + this.client_id + '&nocache=' + this.cache_buster;
+                            var uri = oauth.baseUrl + '/oauth/idcard?access_token=' + oauth.access_token + "&client_id=" + oauth.client_id + '&nocache=' + oauth.cache_buster();
                             console.log('Starting download of ' + uri);
 
                             var idcard = new FileTransfer();
@@ -182,7 +182,7 @@ var app = {
                     $.support.cors = true;
 
                     var updatecheck = $.ajax({
-                        url: this.baseUrl + '/oauth/lastupdate?access_token=' + this.access_token + "&client_id=" + this.client_id + '&nocache=' + this.cache_buster,
+                        url: oauth.baseUrl + '/oauth/lastupdate?access_token=' + oauth.access_token + "&client_id=" + oauth.client_id + '&nocache=' + oauth.cache_buster(),
                         type: "GET",
                         crossDomain: true,
                         cache: false,
@@ -219,12 +219,12 @@ var app = {
                     $.support.cors = true;
 
                     var token = $.ajax({
-                        url: this.baseUrl + '/oauth/token?nocache=' + this.cache_buster,
+                        url: oauth.baseUrl + '/oauth/token?nocache=' + oauth.cache_buster(),
                         type: "POST",
                         crossDomain: true,
                         cache: false,
                         headers: {"cache-control": "no-cache"},
-                        data: 'grant_type=refresh_token&client_id=' + this.client_id + '&refresh_token=' + this.refresh_token,
+                        data: 'grant_type=refresh_token&client_id=' + oauth.client_id + '&refresh_token=' + oauth.refresh_token,
                         async: true
                     });
                     token.done(function (data) {
@@ -235,7 +235,7 @@ var app = {
                         // Make sure we don't end up in a loop
                         returnFn = $.jStorage.get('refreshRetry', false);
                         if (returnFn) {
-                            console.loadUrl('refreshRetury: ' + returnFn)
+                            console.log('refreshRetury: ' + returnFn);
                             oauth[returnFn]();
                         }
                         // Don't know who sent them here, so go back to the login page
@@ -316,10 +316,40 @@ var app = {
                 'logout': function () {
                     $.jStorage.deleteKey('userInfo');
                     $.jStorage.deleteKey('idCardUri');
+
+                    window.requestFileSystem(window.PERSISTENT, 1 * 1024 * 1204, function (fs) {
+                        console.log('File system open: ' + fs.name);
+
+                        fs.root.getFile('idcard.png', {create: false, exclusive: false}, function (fileEntry) {
+                            fileEntry.remove(function () {
+                                console.log('ID card deleted');
+                            }, function (error) {
+                                console.log('Error deleting ID Card: ' + error.code);
+                            });
+                        });
+                    });
+
                     router.navigate('home');
                 },
                 'refresh': function () {
                     oauth.getUserInfo();
+                },
+                'debug': function () {
+                    var navTpl = Handlebars.templates.nav({debugIsActive: true});
+                    var debugInfo = {
+                        systemInfo: {
+                            baseUrl: oauth.baseUrl,
+                            idCardUri: $.jStorage.get('idCardUri', false),
+                            access_token: oauth.access_token,
+                            refresh_token: oauth.refresh_token,
+                            client_id: oauth.client_id,
+                            savedUserName: $.jStorage.get('username', false)
+                        },
+                        userInfo: $.jStorage.get('userInfo', false),
+                    };
+
+                    var debugTpl = Handlebars.templates.debug({debugInfo: debugInfo});
+                    updateScreen(navTpl + logoTpl + debugTpl);
                 },
                 'idcard': function () {
                     var navTpl = Handlebars.templates.nav({idCardIsActive: true});
@@ -338,7 +368,7 @@ var app = {
                         }
                     }
                     var idCardTpl = Handlebars.templates.idcard({imgSrc: idCardUri});
-                    alert('Tab the ID Card to return to your profile');
+                    alert('Tap the ID Card to return to your profile');
                     updateScreen(idCardTpl);
                 },
                 '*': function () {
@@ -432,7 +462,6 @@ var app = {
                         e.preventDefault();
                         SpinnerPlugin.activityStart('Authenticating');
 
-                        var oauth_config = getOauthConfig();
                         var username = $('#email-address').val();
                         var password = $('#password').val();
 
@@ -444,12 +473,12 @@ var app = {
                         var n = currentTime.getTime();
 
                         var login = $.ajax({
-                            url: oauth_config.baseUrl + '/oauth/token?nocache=' + n,
+                            url: oauth.baseUrl + '/oauth/token?nocache=' + n,
                             type: "POST",
                             crossDomain: true,
                             cache: false,
                             headers: {"cache-control": "no-cache"},
-                            data: 'grant_type=password&username=' + username + '&password=' + password + '&client_id=' + oauth_config.client_id,
+                            data: 'grant_type=password&username=' + username + '&password=' + password + '&client_id=' + oauth.client_id,
                             async: true
                         });
 
@@ -458,7 +487,7 @@ var app = {
                             console.log('Access token saved');
                             $.jStorage.set('refresh_token', data.refresh_token);
                             console.log('Refresh token saved');
-                            getUserInfo();
+                            oauth.getUserInfo();
                         });
 
                         login.fail(function (jqXHR, textStatus) {

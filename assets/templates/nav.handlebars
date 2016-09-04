@@ -18,8 +18,9 @@
                 <li{{#if setupIsActive}} class="active"{{/if}}><a href="setup" data-navigo>Setup</a></li>
                 <li{{#if aboutIsActive}} class="active"{{/if}}><a href="about" data-navigo>About</a></li>
                 <li role="separator" class="divider"></li>
-                <li><a href="refresh" data-navigo>Force Reload</a></li>
+                <li><a href="refresh" data-navigo>Reload User Info</a></li>
                 <li role="separator" class="divider"></li>
+                <li{{#if debugIsActive}} class="active"{{/if}}><a href="debug" data-navigo>Show Debug info</a></li>
                 <li><a href="logout" data-navigo>Logout</a></li>
             </ul>
         </div>

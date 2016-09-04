@@ -1,0 +1,24 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-12">
+            <h1 class="medusa-yellow text-center">MEDUSA Mobile Debug Info</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <h3 class="medusa-yellow text-center">System Information</h3>
+        </div>
+    </div>
+    {{#each debugInfo.systemInfo as |value key|}}
+        <div class="row">
+            <div class="col-xs-12 text-center medusa-yellow">
+                {{key}}:
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 text-center">
+                {{value}}
+            </div>
+        </div>
+    {{/each}}
+</div>

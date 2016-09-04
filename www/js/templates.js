@@ -3,10 +3,25 @@
 templates['about'] = template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var helper;
 
-  return "<div class=\"container-fluid\">\n    <div class=\"row\">\n        <div class=\"col-xs-12\">\n            <h1 class=\"medusa-yellow\">About MEDUSA Mobile v"
+  return "<div class=\"container-fluid\">\n    <div class=\"row\">\n        <div class=\"col-xs-12\">\n            <h1 class=\"medusa-yellow text-center\">MEDUSA Mobile</h1>\n            <h1 class=\"medusa-yellow text-center\">Version "
     + container.escapeExpression(((helper = (helper = helpers.version || (depth0 != null ? depth0.version : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : {},{"name":"version","hash":{},"data":data}) : helper)))
     + "</h1>\n        </div>\n    </div>\n    <div class=\"row\">\n        <div class=\"col-xs-12\">\n            <p>MEDUSA Mobile is copyright &copy; 2016 The Royal Manticoran Navy: The Official Honor Harrington Fan Association, Inc. Some Rights Reserved. Honor Harrington and all related materials are &copy; David Weber.</p>\n        </div>\n    </div>\n    <div class=\"row\">\n        <div class=\"col-xs-12\">\n            <h2 class=\"text-center medusa-yellow\">MEDUSA Mobile Development Team</h2>\n            <address>Admiral of the Green Sir Robert W. Bulkeley, Jr, KSK,SC, CGM, DSO<br />\n            Fourth Space Lord</address>\n            <p>Surgeon Commodore Sir David Weiner, KSK, GCE<br/>\n            Deputy Fourth Space Lord</p>\n            <p>Captain (JG) Erik Plossl<br />\n            Director of Software Development</p>\n        </div>\n    </div>\n    <div class=\"row\">\n        <div class=\"col-xs-12\">\n            <h2 class=\"text-center medusa-yellow\">Special thanks to:</h2>\n            <p>Brian Corchiolo (<a href=\"http://www.bpccreative.com\" target=\"_system\">www.bpccreative.com</a>) and Dougal Campbell (<a href=\"http://dougal.us\" target=\"_system\">dougal.us</a>) for their help hamering this code into shape.</p>\n            <p>A very special thanks to John M. Wargo (<a href=\"http://www.johnwargobooks.com\" target=\"_system\">www.johnwargobooks.com</a>) for his excellent books (<em>Apache Cordova 4 Programming</em> and <em>Apache Cordova API Cookbook</em>) as well as his willingness to answer stupid questions from a new mobile developer.</p>\n        </div>\n    </div>\n</div>";
 },"useData":true});
+templates['debug'] = template({"1":function(container,depth0,helpers,partials,data,blockParams) {
+    var alias1=container.lambda, alias2=container.escapeExpression;
+
+  return "        <div class=\"row\">\n            <div class=\"col-xs-12 text-center medusa-yellow\">\n                "
+    + alias2(alias1(blockParams[0][1], depth0))
+    + ":\n            </div>\n        </div>\n        <div class=\"row\">\n            <div class=\"col-xs-12 text-center\">\n                "
+    + alias2(alias1(blockParams[0][0], depth0))
+    + "\n            </div>\n        </div>\n";
+},"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data,blockParams) {
+    var stack1;
+
+  return "<div class=\"container-fluid\">\n    <div class=\"row\">\n        <div class=\"col-xs-12\">\n            <h1 class=\"medusa-yellow text-center\">MEDUSA Mobile Debug Info</h1>\n        </div>\n    </div>\n    <div class=\"row\">\n        <div class=\"col-xs-12\">\n            <h3 class=\"medusa-yellow text-center\">System Information</h3>\n        </div>\n    </div>\n"
+    + ((stack1 = helpers.each.call(depth0 != null ? depth0 : {},((stack1 = (depth0 != null ? depth0.debugInfo : depth0)) != null ? stack1.systemInfo : stack1),{"name":"each","hash":{},"fn":container.program(1, data, 2, blockParams),"inverse":container.noop,"data":data,"blockParams":blockParams})) != null ? stack1 : "")
+    + "</div>";
+},"useData":true,"useBlockParams":true});
 templates['idcard'] = template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var helper;
 
@@ -27,7 +42,7 @@ templates['logo'] = template({"compiler":[7,">= 4.0.0"],"main":function(containe
 templates['memberinfo'] = template({"1":function(container,depth0,helpers,partials,data) {
     var stack1;
 
-  return "                        <h4 class=\"medusa-yellow\">Additional Assignments</h4>\n"
+  return "                        <h4 class=\"medusa-yellow text-center\">Additional Assignments</h4>\n"
     + ((stack1 = helpers.each.call(depth0 != null ? depth0 : {},((stack1 = (depth0 != null ? depth0.userinfo : depth0)) != null ? stack1.assignment : stack1),{"name":"each","hash":{},"fn":container.program(2, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "");
 },"2":function(container,depth0,helpers,partials,data) {
     var stack1;
@@ -36,7 +51,7 @@ templates['memberinfo'] = template({"1":function(container,depth0,helpers,partia
 },"3":function(container,depth0,helpers,partials,data) {
     var alias1=container.lambda, alias2=container.escapeExpression;
 
-  return "                                <div class=\"row\">\n                                    <div class=\"col-xs-12 text-left\">\n                                        <span>"
+  return "                                <div class=\"row\">\n                                    <div class=\"col-xs-12 text-center\">\n                                        <span>"
     + alias2(alias1((depth0 != null ? depth0.chapter_name : depth0), depth0))
     + ", "
     + alias2(alias1((depth0 != null ? depth0.billet : depth0), depth0))
@@ -132,7 +147,9 @@ templates['nav'] = template({"1":function(container,depth0,helpers,partials,data
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.setupIsActive : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "><a href=\"setup\" data-navigo>Setup</a></li>\n                <li"
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.aboutIsActive : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + "><a href=\"about\" data-navigo>About</a></li>\n                <li role=\"separator\" class=\"divider\"></li>\n                <li><a href=\"refresh\" data-navigo>Force Reload</a></li>\n                <li role=\"separator\" class=\"divider\"></li>\n                <li><a href=\"logout\" data-navigo>Logout</a></li>\n            </ul>\n        </div>\n    </div>\n</nav>";
+    + "><a href=\"about\" data-navigo>About</a></li>\n                <li role=\"separator\" class=\"divider\"></li>\n                <li><a href=\"refresh\" data-navigo>Reload User Info</a></li>\n                <li role=\"separator\" class=\"divider\"></li>\n                <li"
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.debugIsActive : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "><a href=\"debug\" data-navigo>Show Debug info</a></li>\n                <li><a href=\"logout\" data-navigo>Logout</a></li>\n            </ul>\n        </div>\n    </div>\n</nav>";
 },"useData":true});
 templates['photo'] = template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var helper;

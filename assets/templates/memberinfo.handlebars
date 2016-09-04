@@ -32,11 +32,11 @@
                     </div>
 
                     {{#if userinfo.assignment.secondary}}
-                        <h4 class="medusa-yellow">Additional Assignments</h4>
+                        <h4 class="medusa-yellow text-center">Additional Assignments</h4>
                         {{#each userinfo.assignment}}
                             {{#unless this.primary}}
                                 <div class="row">
-                                    <div class="col-xs-12 text-left">
+                                    <div class="col-xs-12 text-center">
                                         <span>{{this.chapter_name}}, {{this.billet}}</span>
                                     </div>
                                 </div>
