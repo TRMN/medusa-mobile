@@ -282,7 +282,7 @@ var app = {
             SpinnerPlugin.activityStart('Please Wait');
 
             var router = new Navigo();
-            var logoTpl = Handlebars.templates.logo();
+            var logoTpl = Handlebars.templates.logo({imgClass: 'project-medusa'});
 
             router.on({
                 'about': function () {
@@ -350,6 +350,12 @@ var app = {
 
                     var debugTpl = Handlebars.templates.debug({debugInfo: debugInfo});
                     updateScreen(navTpl + logoTpl + debugTpl);
+                },
+                'signup': function() {
+                    var logoTpl = Handlebars.templates.logo({imgClass: 'trmn-seal'});
+                    var navTpl = Handlebars.templates.nav({signupIsActive: true});
+                    var signupTpl = Handlebars.templates.signup();
+                    updateScreen(navTpl + logoTpl + signupTpl);
                 },
                 'idcard': function () {
                     var navTpl = Handlebars.templates.nav({idCardIsActive: true});

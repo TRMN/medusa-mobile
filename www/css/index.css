@@ -53,6 +53,12 @@ h1 {
     content: url(../img/project-medusa.png);
 }
 
+.trmn-seal {
+    content: url(../img/RMN.png);
+    width: 100px;
+    height: 100px;
+}
+
 .medusa-yellow {
     color: #ffee00;
 }
@@ -138,6 +144,30 @@ h1 {
 
 a {
     text-decoration: none;
+}
+
+legend {
+    color: #ffee00;
+}
+
+.multipage_nav .multipage_next {
+    float:right;
+	background: #a9db80; /* old browsers */
+	background: -moz-linear-gradient(top, #a9db80 0%, #96c56f 100%); /* firefox */
+
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#a9db80), color-stop(100%,#96c56f)); /* webkit */
+
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a9db80', endColorstr='#96c56f',GradientType=0 ); /* ie */
+}
+
+.multipage_nav .multipage_back {
+	float:left;
+	background: #a9db80; /* old browsers */
+	background: -moz-linear-gradient(top, #a9db80 0%, #96c56f 100%); /* firefox */
+
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#a9db80), color-stop(100%,#96c56f)); /* webkit */
+
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a9db80', endColorstr='#96c56f',GradientType=0 ); /* ie */
 }
 
 
