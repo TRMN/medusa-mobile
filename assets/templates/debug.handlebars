@@ -21,4 +21,22 @@
             </div>
         </div>
     {{/each}}
+
+    <div class="row">
+        <div class="col-xs-12">
+            <h3 class="medusa-yellow text-center">User Information</h3>
+        </div>
+    </div>
+    {{#each debugInfo.userInfo as |value key|}}
+        <div class="row">
+            <div class="col-xs-12 text-center medusa-yellow">
+                {{key}}:
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 text-center">
+                {{value}}
+            </div>
+        </div>
+    {{/each}}
 </div>

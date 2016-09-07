@@ -17,12 +17,12 @@
                                            href="#assignments" aria-expanded="true" aria-controls="#assignments">Assignments</a>
                 </h4>
             </div>
-            <div id="assignments" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingAssignments">
+            <div id="assignments" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingAssignments">
                 <div class="panel-body">
 
                     <div class="row">
                         <div class="col-xs-12">
-                            <img class="img-responsive center-block filePhoto" src="seals/{{userinfo.branch}}.png">
+                            <img class="img-responsive center-block filePhoto" id="{{userinfo.branch}}">
                         </div>
                     </div>
 
@@ -74,13 +74,13 @@
                                     {{this.fullTitle}}
                                 </div>
                             </div>
-                        {{else}}
-                            <div class="row">
-                                <div class="col-xs-12">
-                                    None
-                                </div>
-                            </div>
                         {{/each}}
+                    {{else}}
+                        <div class="row">
+                            <div class="col-xs-12">
+                                None
+                            </div>
+                        </div>
                     {{/if}}
                 </div>
             </div>
@@ -140,6 +140,12 @@
                                     </div>
 
                                 {{/each}}
+                            </div>
+                        </div>
+                    {{else}}
+                        <div class="row">
+                            <div class="col-xs-12">
+                                None
                             </div>
                         </div>
                     {{/if}}

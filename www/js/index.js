@@ -62,6 +62,11 @@ var app = {
                 access_token: $.jStorage.get('access_token', false),
                 refresh_token: $.jStorage.get('refresh_token', false),
                 client_id: 'medusamobile',
+
+                reloadTokens: function () {
+                    oauth.access_token = $.jStorage.get('access_token', false);
+                    oauth.refresh_token = $.jStorage.get('refresh_token', false);
+                },
                 cache_buster: function () {
                     var currentTime = new Date();
                     return currentTime.getTime();
@@ -129,6 +134,7 @@ var app = {
                     profile.done(function (data) {
                         $.jStorage.set('userInfo', data);
                         console.log('User info retrieved and saved');
+                        console.log('User Info from server: ' + JSON.stringify(data));
                         oauth.getIdCard();
                         oauth.getTisTig();
                     });
@@ -316,6 +322,9 @@ var app = {
                 'logout': function () {
                     $.jStorage.deleteKey('userInfo');
                     $.jStorage.deleteKey('idCardUri');
+                    console.log('Deleting tokens in logout function');
+                    $.jStorage.deleteKey('access_token');
+                    $.jStorage.deleteKey('refresh_token');
 
                     window.requestFileSystem(window.PERSISTENT, 1 * 1024 * 1204, function (fs) {
                         console.log('File system open: ' + fs.name);
@@ -351,7 +360,7 @@ var app = {
                     var debugTpl = Handlebars.templates.debug({debugInfo: debugInfo});
                     updateScreen(navTpl + logoTpl + debugTpl);
                 },
-                'signup': function() {
+                'signup': function () {
                     var logoTpl = Handlebars.templates.logo({imgClass: 'trmn-seal'});
                     var navTpl = Handlebars.templates.nav({signupIsActive: true});
                     var signupTpl = Handlebars.templates.signup();
@@ -407,6 +416,9 @@ var app = {
 
             function showLogin() {
                 $.jStorage.deleteKey('userInfo');
+                console.log('Deleting tokens in showLogin()');
+                $.jStorage.deleteKey('access_token');
+                $.jStorage.deleteKey('refresh_token');
                 router.navigate('login');
             }
 
@@ -436,6 +448,7 @@ var app = {
             function showProfile() {
                 var navTpl = Handlebars.templates.nav({profileIsActive: true});
                 var userInfo = $.jStorage.get('userInfo', false);
+                console.log('User Info from storage: ' + JSON.stringify(userInfo));
                 var photoTpl = '';
                 var baseUrl = $.jStorage.get('baseURL', 'https://medusa.trmn.org');
 
@@ -451,6 +464,7 @@ var app = {
                 var bodyTpl = photoTpl + memberinfoTpl;
 
                 updateScreen(navTpl + bodyTpl);
+                //$('#seal').css('content', 'url(../seals/' + userInfo.branch + '.png');
             }
 
 
@@ -467,6 +481,9 @@ var app = {
                     } else {
                         e.preventDefault();
                         SpinnerPlugin.activityStart('Authenticating');
+                        console.log('Deleting tokens after login button clicked');
+                        $.jStorage.deleteKey('access_token');
+                        $.jStorage.deleteKey('refresh_token');
 
                         var username = $('#email-address').val();
                         var password = $('#password').val();
@@ -493,6 +510,7 @@ var app = {
                             console.log('Access token saved');
                             $.jStorage.set('refresh_token', data.refresh_token);
                             console.log('Refresh token saved');
+                            oauth.reloadTokens();
                             oauth.getUserInfo();
                         });
 

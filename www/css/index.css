@@ -59,6 +59,54 @@ h1 {
     height: 100px;
 }
 
+#CIV {
+    content: url(../seals/CIV.png);
+    width: 100px;
+    height: 100px;
+}
+
+#GSN {
+    content: url(../seals/GSN.png);
+    width: 100px;
+    height: 100px;
+}
+
+#IAN {
+    content: url(../seals/IAN.png);
+    width: 100px;
+    height: 100px;
+}
+
+#INTEL {
+    content: url(../seals/INTEL.png);
+    width: 100px;
+    height: 100px;
+}
+
+#RHN {
+    content: url(../seals/RHN.png);
+    width: 100px;
+    height: 100px;
+}
+
+#RMA {
+    content: url(../seals/RMA.png);
+    width: 100px;
+    height: 100px;
+}
+
+#RMMC {
+    content: url(../seals/RMMC.png);
+    width: 100px;
+    height: 100px;
+}
+
+#RMN {
+    content: url(../seals/RMN.png);
+    width: 100px;
+    height: 100px;
+}
+
 .medusa-yellow {
     color: #ffee00;
 }
