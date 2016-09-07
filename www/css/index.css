@@ -53,6 +53,60 @@ h1 {
     content: url(../img/project-medusa.png);
 }
 
+.trmn-seal {
+    content: url(../img/RMN.png);
+    width: 100px;
+    height: 100px;
+}
+
+#CIV {
+    content: url(../seals/CIV.png);
+    width: 100px;
+    height: 100px;
+}
+
+#GSN {
+    content: url(../seals/GSN.png);
+    width: 100px;
+    height: 100px;
+}
+
+#IAN {
+    content: url(../seals/IAN.png);
+    width: 100px;
+    height: 100px;
+}
+
+#INTEL {
+    content: url(../seals/INTEL.png);
+    width: 100px;
+    height: 100px;
+}
+
+#RHN {
+    content: url(../seals/RHN.png);
+    width: 100px;
+    height: 100px;
+}
+
+#RMA {
+    content: url(../seals/RMA.png);
+    width: 100px;
+    height: 100px;
+}
+
+#RMMC {
+    content: url(../seals/RMMC.png);
+    width: 100px;
+    height: 100px;
+}
+
+#RMN {
+    content: url(../seals/RMN.png);
+    width: 100px;
+    height: 100px;
+}
+
 .medusa-yellow {
     color: #ffee00;
 }
@@ -138,6 +192,30 @@ h1 {
 
 a {
     text-decoration: none;
+}
+
+legend {
+    color: #ffee00;
+}
+
+.multipage_nav .multipage_next {
+    float:right;
+	background: #a9db80; /* old browsers */
+	background: -moz-linear-gradient(top, #a9db80 0%, #96c56f 100%); /* firefox */
+
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#a9db80), color-stop(100%,#96c56f)); /* webkit */
+
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a9db80', endColorstr='#96c56f',GradientType=0 ); /* ie */
+}
+
+.multipage_nav .multipage_back {
+	float:left;
+	background: #a9db80; /* old browsers */
+	background: -moz-linear-gradient(top, #a9db80 0%, #96c56f 100%); /* firefox */
+
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#a9db80), color-stop(100%,#96c56f)); /* webkit */
+
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a9db80', endColorstr='#96c56f',GradientType=0 ); /* ie */
 }
 
 

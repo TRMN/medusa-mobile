@@ -1,0 +1,135 @@
+<script type="text/javascript">
+    $(window).ready(function () {
+        $('#signup').multipage({
+            enhanceNavigation: false
+        });
+        $('form').submit(function () {
+            alert("Submitted!");
+            return false;
+        });
+
+        function formNavigation(pages) {
+            $('<div class="multipage_nav" id="' + id_name + '_nav"><a href="#" class="multipage_back" onclick="return  $(\'' + id + '\').prevpage();">Back</a><a href="#"  class="multipage_next" onclick="return $(\'' + id + '\').nextpage();">Next</a><span class="multipage_state"></span><div class="clearer"></div></div>').insertAfter(this);
+        }
+    });
+</script>
+<div class="container-fluid">
+    <form id="signup">
+        <fieldset>
+            <legend>Basic Information</legend>
+            <div class="form-group">
+                <label class="small">First Name</label>
+                <input type="text" class="form-control">
+            </div>
+            <div class="form-group">
+                <label class="small">Middle Name</label>
+                <input class="form-control" type="text">
+            </div>
+            <div class="form-group">
+                <label class="small">Last Name</label>
+                <input class="form-control" type="text">
+            </div>
+            <div class="form-group">
+                <label class="small">Suffix</label>
+                <input class="form-control" type="text">
+            </div>
+            <div class="form-group">
+                <label class="small">Email Address</label>
+                <input class="form-control" type="text">
+            </div>
+            <div class="form-group">
+                <label class="small">Password</label>
+                <input class="form-control" type="text">
+            </div>
+            <div class="form-group">
+                <label class="small">Confirm Password</label>
+                <input class="form-control" type="text">
+            </div>
+            <div class="form-group">
+                <label class="small">Date of Birth</label>
+                <input class="form-control" type="date">
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend>Address</legend>
+            <div class="row">
+                <div class="col-xs-4 small">
+                    Street Address
+                </div>
+                <div class="col-xs-7 small">
+                    <input type="text">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-4 small">
+                    Address Line 2
+                </div>
+                <div class="col-xs-7 small">
+                    <input type="text">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-4 small">
+                    City
+                </div>
+                <div class="col-xs-7 small">
+                    <input type="text">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-4 small">
+                    State/Province
+                </div>
+                <div class="col-xs-7 small">
+                    <input type="text">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-4 small">
+                    Zip/Postal Code
+                </div>
+                <div class="col-xs-7 small">
+                    <input type="text">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-4 small">
+                    Country
+                </div>
+                <div class="col-xs-7 small">
+                    <input type="text">
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend>Branch and Chapter</legend>
+            <div class="row">
+                <div class="col-xs-4 small">
+                    Branch
+                </div>
+                <div class="col-xs-7 small">
+                    <select>
+                        <option>Select a Branch</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-4 small">
+                    Chapter
+                </div>
+                <div class="col-xs-7 small">
+                    <select>
+                        <option>Select a Chapter</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <input type="checkbox"> I have read and agree to the Terms of Service
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>
