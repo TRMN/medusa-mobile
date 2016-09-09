@@ -1,13 +1,13 @@
-(function() {
-  var template = Handlebars.template, templates = Handlebars.templates = Handlebars.templates || {};
-templates['about'] = template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+this["medusa"] = this["medusa"] || {};
+this["medusa"]["templates"] = this["medusa"]["templates"] || {};
+this["medusa"]["templates"]["about"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var helper;
 
   return "<div class=\"container-fluid\">\n    <div class=\"row\">\n        <div class=\"col-xs-12\">\n            <h1 class=\"medusa-yellow text-center\">MEDUSA Mobile</h1>\n            <h1 class=\"medusa-yellow text-center\">Version "
     + container.escapeExpression(((helper = (helper = helpers.version || (depth0 != null ? depth0.version : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : {},{"name":"version","hash":{},"data":data}) : helper)))
     + "</h1>\n        </div>\n    </div>\n    <div class=\"row\">\n        <div class=\"col-xs-12\">\n            <p>MEDUSA Mobile is copyright &copy; 2016 The Royal Manticoran Navy: The Official Honor Harrington Fan Association, Inc. Some Rights Reserved. Honor Harrington and all related materials are &copy; David Weber.</p>\n        </div>\n    </div>\n    <div class=\"row\">\n        <div class=\"col-xs-12\">\n            <h2 class=\"text-center medusa-yellow\">MEDUSA Mobile Development Team</h2>\n            <address>Admiral of the Green Sir Robert W. Bulkeley, Jr, KSK,SC, CGM, DSO<br />\n            Fourth Space Lord</address>\n            <p>Surgeon Commodore Sir David Weiner, KSK, GCE<br/>\n            Deputy Fourth Space Lord</p>\n            <p>Captain (JG) Erik Plossl<br />\n            Director of Software Development</p>\n        </div>\n    </div>\n    <div class=\"row\">\n        <div class=\"col-xs-12\">\n            <h2 class=\"text-center medusa-yellow\">Special thanks to:</h2>\n            <p>Brian Corchiolo (<a href=\"http://www.bpccreative.com\" target=\"_system\">www.bpccreative.com</a>) and Dougal Campbell (<a href=\"http://dougal.us\" target=\"_system\">dougal.us</a>) for their help hamering this code into shape.</p>\n            <p>A very special thanks to John M. Wargo (<a href=\"http://www.johnwargobooks.com\" target=\"_system\">www.johnwargobooks.com</a>) for his excellent books (<em>Apache Cordova 4 Programming</em> and <em>Apache Cordova API Cookbook</em>) as well as his willingness to answer stupid questions from a new mobile developer.</p>\n        </div>\n    </div>\n</div>";
 },"useData":true});
-templates['debug'] = template({"1":function(container,depth0,helpers,partials,data,blockParams) {
+this["medusa"]["templates"]["debug"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data,blockParams) {
     var alias1=container.lambda, alias2=container.escapeExpression;
 
   return "        <div class=\"row\">\n            <div class=\"col-xs-12 text-center medusa-yellow\">\n                "
@@ -24,28 +24,28 @@ templates['debug'] = template({"1":function(container,depth0,helpers,partials,da
     + ((stack1 = helpers.each.call(alias1,((stack1 = (depth0 != null ? depth0.debugInfo : depth0)) != null ? stack1.userInfo : stack1),{"name":"each","hash":{},"fn":container.program(1, data, 2, blockParams),"inverse":container.noop,"data":data,"blockParams":blockParams})) != null ? stack1 : "")
     + "</div>";
 },"useData":true,"useBlockParams":true});
-templates['idcard'] = template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+this["medusa"]["templates"]["idcard"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var helper;
 
   return "<div class=\"navbar navbar-default navbar-fixed-top\">\n    <a href=\"profile\" data-navigo><img id=\"idcard\" src=\""
     + container.escapeExpression(((helper = (helper = helpers.imgSrc || (depth0 != null ? depth0.imgSrc : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : {},{"name":"imgSrc","hash":{},"data":data}) : helper)))
     + "\"></a>\n</div>";
 },"useData":true});
-templates['login'] = template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+this["medusa"]["templates"]["login"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var helper;
 
   return "<div class=\"container-fluid\">\n    <form data-toggle=\"validator\" role=\"form\" id=\"login-form\">\n        <div class=\"form-group has-feedback\">\n            <div class=\"input-group\">\n                <span class=\"input-group-addon fi-at-sign\" id=\"email-addon\"></span>\n                <input type=\"email\" class=\"form-control\" placeholder=\"Email address\" aria-describedby=\"email-addon\"\n                       id=\"email-address\" data-error=\"Invalid email address\" value=\""
     + container.escapeExpression(((helper = (helper = helpers.username || (depth0 != null ? depth0.username : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : {},{"name":"username","hash":{},"data":data}) : helper)))
     + "\" required>\n                <span class=\"glyphicon form-control-feedback\" aria-hidden=\"true\"></span>\n            </div>\n        </div>\n\n        <br/>\n        <div class=\"form-group has-feedback\">\n            <div class=\"input-group\">\n                <span class=\"input-group-addon fi-lock\" id=\"password-addon\"></span>\n                <input type=\"password\" class=\"form-control\" placeholder=\"Password\" aria-describedby=\"password-addon\"\n                       id=\"password\" data-error=\"Please enter your password\" required>\n                <span class=\"glyphicon form-control-feedback\" aria-hidden=\"true\"></span>\n            </div>\n        </div>\n        <br/>\n\n        <button type=\"submit\" class=\"btn btn-default center-block\" id=\"signin-button\"><span class=\"fi-unlock\"></span>\n            Sign in\n        </button>\n        <br />\n        <p><em>Not a member yet?  Register <a href=\"signup\" data-navigo>Here!</a></em></p>\n    </form>\n</div>\n";
 },"useData":true});
-templates['logo'] = template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+this["medusa"]["templates"]["logo"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var helper;
 
   return "<div class=\"container-fluid\">\n    <div class=\"row\">\n        <div class=\"col-xs-12\">\n            <img class=\"img-responsive center-block "
     + container.escapeExpression(((helper = (helper = helpers.imgClass || (depth0 != null ? depth0.imgClass : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : {},{"name":"imgClass","hash":{},"data":data}) : helper)))
     + "\">\n        </div>\n    </div>\n</div>\n<br/>";
 },"useData":true});
-templates['memberinfo'] = template({"1":function(container,depth0,helpers,partials,data) {
+this["medusa"]["templates"]["memberinfo"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
     var stack1;
 
   return "                        <h4 class=\"medusa-yellow text-center\">Additional Assignments</h4>\n"
@@ -142,7 +142,7 @@ templates['memberinfo'] = template({"1":function(container,depth0,helpers,partia
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.userinfo : depth0)) != null ? stack1.tis : stack1), depth0))
     + "</span>\n                        </div>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n</div>";
 },"useData":true,"useDepths":true,"useBlockParams":true});
-templates['nav'] = template({"1":function(container,depth0,helpers,partials,data) {
+this["medusa"]["templates"]["nav"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
     return " class=\"active\"";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1, alias1=depth0 != null ? depth0 : {};
@@ -161,21 +161,20 @@ templates['nav'] = template({"1":function(container,depth0,helpers,partials,data
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.debugIsActive : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "><a href=\"debug\" data-navigo>Show Debug info</a></li>\n                <li><a href=\"logout\" data-navigo>Logout</a></li>\n            </ul>\n        </div>\n    </div>\n</nav>";
 },"useData":true});
-templates['photo'] = template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+this["medusa"]["templates"]["photo"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var helper;
 
   return "<div class=\"container-fluid\">\n    <div class=\"row\">\n        <div class=\"col-xs-12\">\n            <img src=\""
     + container.escapeExpression(((helper = (helper = helpers.imgSrc || (depth0 != null ? depth0.imgSrc : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : {},{"name":"imgSrc","hash":{},"data":data}) : helper)))
     + "\" class=\"center-block img-responsive img-circle filePhoto\">\n        </div>\n    </div>\n</div>";
 },"useData":true});
-templates['setup'] = template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+this["medusa"]["templates"]["setup"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var helper;
 
   return "<div class=\"container-fluid\">\n    <h1 class=\"medusa-yellow text-center\">MEDUSA Server URL</h1>\n    <p><strong><span class=\"alert-warning\">WARNING!</span> Do not change this entry unless you know what you are doing or have\n    been instructed to do so by a member of the MEDUSA Mobile Development Team.  Changing the URL of the MEDUSA server\n    to an incorrect value will prevent MEDUSA Mobile from working!</strong></p>\n\n    <div class=\"input-group\">\n        <span class=\"input-group-addon fi-home\" id=\"server-addon\"></span>\n        <input type=\"text\" class=\"form-control\" placeholder=\"https://medusa.trmn.org\" aria-describedby=\"server-addon\" id=\"server-url\" value=\""
     + container.escapeExpression(((helper = (helper = helpers.url || (depth0 != null ? depth0.url : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : {},{"name":"url","hash":{},"data":data}) : helper)))
     + "\">\n    </div>\n    <br />\n    <button type=\"submit\" id=\"save-setup\" class=\"btn btn-default center-block\"><span class=\"fi-save\"></span> Save</button>\n</div>";
 },"useData":true});
-templates['signup'] = template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+this["medusa"]["templates"]["signup"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     return "<script type=\"text/javascript\">\n    $(window).ready(function () {\n        $('#signup').multipage({\n            enhanceNavigation: false\n        });\n        $('form').submit(function () {\n            alert(\"Submitted!\");\n            return false;\n        });\n\n        function formNavigation(pages) {\n            $('<div class=\"multipage_nav\" id=\"' + id_name + '_nav\"><a href=\"#\" class=\"multipage_back\" onclick=\"return  $(\\'' + id + '\\').prevpage();\">Back</a><a href=\"#\"  class=\"multipage_next\" onclick=\"return $(\\'' + id + '\\').nextpage();\">Next</a><span class=\"multipage_state\"></span><div class=\"clearer\"></div></div>').insertAfter(this);\n        }\n    });\n</script>\n<div class=\"container-fluid\">\n    <form id=\"signup\">\n        <fieldset>\n            <legend>Basic Information</legend>\n            <div class=\"form-group\">\n                <label class=\"small\">First Name</label>\n                <input type=\"text\" class=\"form-control\">\n            </div>\n            <div class=\"form-group\">\n                <label class=\"small\">Middle Name</label>\n                <input class=\"form-control\" type=\"text\">\n            </div>\n            <div class=\"form-group\">\n                <label class=\"small\">Last Name</label>\n                <input class=\"form-control\" type=\"text\">\n            </div>\n            <div class=\"form-group\">\n                <label class=\"small\">Suffix</label>\n                <input class=\"form-control\" type=\"text\">\n            </div>\n            <div class=\"form-group\">\n                <label class=\"small\">Email Address</label>\n                <input class=\"form-control\" type=\"text\">\n            </div>\n            <div class=\"form-group\">\n                <label class=\"small\">Password</label>\n                <input class=\"form-control\" type=\"text\">\n            </div>\n            <div class=\"form-group\">\n                <label class=\"small\">Confirm Password</label>\n                <input class=\"form-control\" type=\"text\">\n            </div>\n            <div class=\"form-group\">\n                <label class=\"small\">Date of Birth</label>\n                <input class=\"form-control\" type=\"date\">\n            </div>\n        </fieldset>\n\n        <fieldset>\n            <legend>Address</legend>\n            <div class=\"row\">\n                <div class=\"col-xs-4 small\">\n                    Street Address\n                </div>\n                <div class=\"col-xs-7 small\">\n                    <input type=\"text\">\n                </div>\n            </div>\n            <div class=\"row\">\n                <div class=\"col-xs-4 small\">\n                    Address Line 2\n                </div>\n                <div class=\"col-xs-7 small\">\n                    <input type=\"text\">\n                </div>\n            </div>\n            <div class=\"row\">\n                <div class=\"col-xs-4 small\">\n                    City\n                </div>\n                <div class=\"col-xs-7 small\">\n                    <input type=\"text\">\n                </div>\n            </div>\n            <div class=\"row\">\n                <div class=\"col-xs-4 small\">\n                    State/Province\n                </div>\n                <div class=\"col-xs-7 small\">\n                    <input type=\"text\">\n                </div>\n            </div>\n            <div class=\"row\">\n                <div class=\"col-xs-4 small\">\n                    Zip/Postal Code\n                </div>\n                <div class=\"col-xs-7 small\">\n                    <input type=\"text\">\n                </div>\n            </div>\n            <div class=\"row\">\n                <div class=\"col-xs-4 small\">\n                    Country\n                </div>\n                <div class=\"col-xs-7 small\">\n                    <input type=\"text\">\n                </div>\n            </div>\n        </fieldset>\n\n        <fieldset>\n            <legend>Branch and Chapter</legend>\n            <div class=\"row\">\n                <div class=\"col-xs-4 small\">\n                    Branch\n                </div>\n                <div class=\"col-xs-7 small\">\n                    <select>\n                        <option>Select a Branch</option>\n                    </select>\n                </div>\n            </div>\n            <div class=\"row\">\n                <div class=\"col-xs-4 small\">\n                    Chapter\n                </div>\n                <div class=\"col-xs-7 small\">\n                    <select>\n                        <option>Select a Chapter</option>\n                    </select>\n                </div>\n            </div>\n            <div class=\"row\">\n                <div class=\"col-xs-12\">\n                    <input type=\"checkbox\"> I have read and agree to the Terms of Service\n                </div>\n            </div>\n        </fieldset>\n    </form>\n</div>";
 },"useData":true});
-})();

@@ -57,6 +57,11 @@ var app = {
 
         document.addEventListener('deviceready', function () {
 
+            function spinner(msg) {
+                SpinnerPlugin.activityStart(msg);
+                console.log(msg);
+            }
+
             var oauth = {
                 baseUrl: $.jStorage.get('baseURL', 'https://medusa.trmn.org'),
                 access_token: $.jStorage.get('access_token', false),
@@ -88,7 +93,7 @@ var app = {
                     showLogin();
                 },
                 getTisTig: function () {
-                    SpinnerPlugin.activityStart('Getting Time In Service / Time In Grade');
+                    spinner('Getting Time In Service / Time In Grade');
 
                     $.support.cors = true;
 
@@ -120,7 +125,7 @@ var app = {
                     });
                 },
                 getUserInfo: function () {
-                    SpinnerPlugin.activityStart('Requesting User Info');
+                    spinner('Requesting User Info');
                     $.support.cors = true;
 
                     var profile = $.ajax({
@@ -143,7 +148,7 @@ var app = {
                     });
                 },
                 getIdCard: function () {
-                    SpinnerPlugin.activityStart('Downloading ID Card');
+                    spinner('Downloading ID Card');
 
                     window.requestFileSystem(window.PERSISTENT, 1 * 1024 * 1204, function (fs) {
                         console.log('File system open: ' + fs.name);
@@ -183,7 +188,7 @@ var app = {
 
                 },
                 getLastUpdate: function () {
-                    SpinnerPlugin.activityStart('Checking for updates');
+                    spinner('Checking for updates');
 
                     $.support.cors = true;
 
@@ -221,7 +226,8 @@ var app = {
                     });
                 },
                 refreshToken: function () {
-                    SpinnerPlugin.activityStart('Refreshing authentication');
+                    spinner('Refreshing authentication');
+
                     $.support.cors = true;
 
                     var token = $.ajax({
@@ -285,31 +291,31 @@ var app = {
                 }
             }
 
-            SpinnerPlugin.activityStart('Please Wait');
+            spinner('Please Wait');
 
             var router = new Navigo();
-            var logoTpl = Handlebars.templates.logo({imgClass: 'project-medusa'});
+            var logoTpl = medusa.templates.logo({imgClass: 'project-medusa'});
 
             router.on({
                 'about': function () {
                     //var AppVersion = '0.0.3';
                     cordova.getAppVersion.getVersionNumber().then(function (version) {
                         var AppVersion = version;
-                        var navTpl = Handlebars.templates.nav({aboutIsActive: true});
-                        var aboutTpl = Handlebars.templates.about({version: AppVersion});
+                        var navTpl = medusa.templates.nav({aboutIsActive: true});
+                        var aboutTpl = medusa.templates.about({version: AppVersion});
                         updateScreen(navTpl + logoTpl + aboutTpl);
                     });
                 },
                 'setup': function () {
                     var medusaURL = $.jStorage.get('baseURL', 'https://medusa.trmn.org');
-                    var navTpl = Handlebars.templates.nav({setupIsActive: true});
+                    var navTpl = medusa.templates.nav({setupIsActive: true});
                     var config = {url: medusaURL};
 
                     if (medusaURL == 'https://medusa.trmn.org') {
                         config.url = null;
                     }
 
-                    var setupTpl = Handlebars.templates.setup(config);
+                    var setupTpl = medusa.templates.setup(config);
                     updateScreen(navTpl + logoTpl + setupTpl);
                 },
                 'profile': function () {
@@ -344,7 +350,7 @@ var app = {
                     oauth.getUserInfo();
                 },
                 'debug': function () {
-                    var navTpl = Handlebars.templates.nav({debugIsActive: true});
+                    var navTpl = medusa.templates.nav({debugIsActive: true});
                     var debugInfo = {
                         systemInfo: {
                             baseUrl: oauth.baseUrl,
@@ -357,17 +363,17 @@ var app = {
                         userInfo: $.jStorage.get('userInfo', false),
                     };
 
-                    var debugTpl = Handlebars.templates.debug({debugInfo: debugInfo});
+                    var debugTpl = medusa.templates.debug({debugInfo: debugInfo});
                     updateScreen(navTpl + logoTpl + debugTpl);
                 },
                 'signup': function () {
-                    var logoTpl = Handlebars.templates.logo({imgClass: 'trmn-seal'});
-                    var navTpl = Handlebars.templates.nav({signupIsActive: true});
-                    var signupTpl = Handlebars.templates.signup();
+                    var logoTpl = medusa.templates.logo({imgClass: 'trmn-seal'});
+                    var navTpl = medusa.templates.nav({signupIsActive: true});
+                    var signupTpl = medusa.templates.signup();
                     updateScreen(navTpl + logoTpl + signupTpl);
                 },
                 'idcard': function () {
-                    var navTpl = Handlebars.templates.nav({idCardIsActive: true});
+                    var navTpl = medusa.templates.nav({idCardIsActive: true});
                     var idCardUri = $.jStorage.get('idCardUri', false);
 
                     if (!idCardUri) {
@@ -382,20 +388,20 @@ var app = {
                             router.navigate('profile');
                         }
                     }
-                    var idCardTpl = Handlebars.templates.idcard({imgSrc: idCardUri});
+                    var idCardTpl = medusa.templates.idcard({imgSrc: idCardUri});
                     alert('Tap the ID Card to return to your profile');
                     updateScreen(idCardTpl);
                 },
                 '*': function () {
 
-                    var navTpl = Handlebars.templates.nav({homeIsActive: true});
+                    var navTpl = medusa.templates.nav({homeIsActive: true});
                     var userInfo = $.jStorage.get('userInfo', false);
                     if (userInfo) {
                         router.navigate('profile');
                         return false;
                     } else {
                         var usernmame = $.jStorage.get('username', '');
-                        var bodyTpl = Handlebars.templates.login({'username': usernmame});
+                        var bodyTpl = medusa.templates.login({'username': usernmame});
 
                         updateScreen(navTpl + logoTpl + bodyTpl);
                         bindLogin();
@@ -446,7 +452,7 @@ var app = {
             }
 
             function showProfile() {
-                var navTpl = Handlebars.templates.nav({profileIsActive: true});
+                var navTpl = medusa.templates.nav({profileIsActive: true});
                 var userInfo = $.jStorage.get('userInfo', false);
                 console.log('User Info from storage: ' + JSON.stringify(userInfo));
                 var photoTpl = '';
@@ -454,10 +460,10 @@ var app = {
 
                 if (userInfo.filePhoto) {
                     var path = baseUrl + userInfo.filePhoto;
-                    photoTpl = Handlebars.templates.photo({imgSrc: path});
+                    photoTpl = medusa.templates.photo({imgSrc: path});
                 }
                 userInfo.assignment = getAssignments();
-                var memberinfoTpl = Handlebars.templates.memberinfo({
+                var memberinfoTpl = medusa.templates.memberinfo({
                     userinfo: userInfo,
                     baseurl: baseUrl
                 });
@@ -480,7 +486,7 @@ var app = {
                         return false;
                     } else {
                         e.preventDefault();
-                        SpinnerPlugin.activityStart('Authenticating');
+                        spinner('Authenticating');
                         console.log('Deleting tokens after login button clicked');
                         $.jStorage.deleteKey('access_token');
                         $.jStorage.deleteKey('refresh_token');

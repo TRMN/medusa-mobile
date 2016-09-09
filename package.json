@@ -1,0 +1,19 @@
+{
+  "name": "medusa_mobile",
+  "version": "0.0.5",
+  "description": "Mobile client for the TRMN Medusa Membership Portal",
+  "url": "https://github.com/TRMN/medusa-mobile/issues",
+  "email": "bolthole@trmn.org",
+  "license": "MIT",
+  "repository": "TRMN/medusa-mobile",
+  "devDependencies": {
+    "handlebars": "^4.0.5",
+    "gulp-clean-css": "*",
+    "gulp": "*",
+    "gulp-handlebars": "*",
+    "gulp-wrap": "*",
+    "gulp-declare": "*",
+    "gulp-concat": "*",
+    "gulp-uglify": "*"
+  }
+}
