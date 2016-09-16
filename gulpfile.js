@@ -5,7 +5,49 @@ var declare = require('gulp-declare');
 var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var cleanCSS = require('gulp-clean-css');
+var watch = require('gulp-watch');
+cordova = require("cordova-lib").cordova;
 
+var config = {
+    assetsDir: "assets",
+    cssPattern: "css/*.css",
+    jsPattern: "js/*.js",
+    hbPattern: "templates/*.handlebars"
+};
+
+gulp.task('watch', function () {
+    gulp.watch(config.assetsDir + '/' + config.hbPattern, ['templates']);
+    gulp.watch(config.assetsDir + '/' + config.cssPattern, ['css']);
+    gulp.watch(config.assetsDir + '/' + config.jsPattern, ['scripts']);
+});
+
+gulp.task("build", function (callback) {
+    cordova.build({
+        "platforms": ["android", "ios"],
+        "options": {
+            argv: ["--gradleArg=--no-daemon"]
+        }
+    }, callback);
+});
+
+gulp.task('android', function (callback) {
+    cordova.run({
+        "platforms": ["android"]
+    }, callback);
+});
+
+gulp.task('build-android', function (callback) {
+    cordova.build({
+        "platforms": ["android", "ios"],
+        "options": {
+            argv: ["--gradleArg=--no-daemon"]
+        }
+    }, callback);
+
+    cordova.run({
+        "platforms": ["android"]
+    }, callback);
+});
 
 gulp.task('templates', function () {
     gulp.src('assets/templates/*.handlebars')
@@ -17,8 +59,8 @@ gulp.task('templates', function () {
             namespace: 'medusa.templates',
             noRedeclare: true // Avoid duplicate declarations
         }))
-        .pipe(concat('template.js'))
-        .pipe(gulp.dest('asseets/js/'));
+        .pipe(concat('templates.js'))
+        .pipe(gulp.dest('assets/js/'));
 });
 
 gulp.task('css', function () {
@@ -35,3 +77,6 @@ gulp.task('scripts', function () {
         .pipe(uglify())
         .pipe(gulp.dest('www/js/'));
 });
+
+gulp.task("default", ["templates", "css", "scripts"]);
+

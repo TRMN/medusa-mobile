@@ -22,7 +22,7 @@
 
                     <div class="row">
                         <div class="col-xs-12">
-                            <img class="img-responsive center-block filePhoto" id="{{userinfo.branch}}">
+                            <img class="img-responsive center-block filePhoto" id="branch{{userinfo.branch}}">
                         </div>
                     </div>
 
@@ -65,8 +65,14 @@
                         {{#each userinfo.peerages}}
                             <div class="row">
                                 <div class="col-xs-12">
-                                    <img src="{{../baseurl}}{{this.path}}"
-                                         class="center-block img-responsive img-circle filePhoto">
+                                    {{#ifvalue this.code value="K"}}
+                                        <img id="{{this.path}}"
+                                         class="center-block img-responsive">
+                                    {{else}}
+                                        <img src="{{../baseurl}}{{this.path}}"
+                                         class="center-block img-responsive filePhoto">
+                                    {{/ifvalue}}
+
                                 </div>
                             </div>
                             <div class="row">

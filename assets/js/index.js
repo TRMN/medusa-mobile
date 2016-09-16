@@ -31,7 +31,7 @@ var app = {
             var width = screen.width;
             var height = screen.height;
 
-            console.log(screen.orientation.type);
+            console.log("Screen orientation is: " + screen.orientation.type);
 
             switch (screen.orientation.type) {
                 case 'landscape':
@@ -61,6 +61,14 @@ var app = {
                 SpinnerPlugin.activityStart(msg);
                 console.log(msg);
             }
+
+            Handlebars.registerHelper('ifvalue', function (conditional, options) {
+                if (options.hash.value === conditional) {
+                    return options.fn(this)
+                } else {
+                    return options.inverse(this);
+                }
+            });
 
             var oauth = {
                 baseUrl: $.jStorage.get('baseURL', 'https://medusa.trmn.org'),
@@ -260,6 +268,172 @@ var app = {
                 }
             };
 
+            var api = {
+                params: {},
+                getCountryList: function () {
+                    api.params = {
+                        spinnerMsg: 'Getting Countries',
+                        apiUrl: '/api/country',
+                        storageKey: 'countries',
+                        successLogMsg: 'Country list saved',
+                        failMsg: "I'm sorry, but I was unable to retrieve the list of countries.  Please try again later.",
+                        failLogMsg: "Unable to get country list",
+                        nextFunction: "getBranches"
+                    };
+                    api.makeApiCall();
+                },
+                getBranches: function () {
+                    api.params = {
+                        spinnerMsg: 'Getting Branches',
+                        apiUrl: '/api/branch',
+                        storageKey: 'branches',
+                        successLogMsg: 'Branch list saved',
+                        failMsg: "I'm sorry, but I was unable to retrieve the list of branches.  Please try again later.",
+                        failLogMsg: "Unable to get branch list",
+                        nextFunction: "getChapters"
+                    };
+                    api.makeApiCall();
+                },
+                getChapters: function () {
+                    api.params = {
+                        spinnerMsg: 'Getting Chapters',
+                        apiUrl: '/api/chapter',
+                        storageKey: 'chapters',
+                        successLogMsg: 'Chapter list saved',
+                        failMsg: "I'm sorry, but I was unable to retrieve the list of chapters.  Please try again later.",
+                        failLogMsg: "Unable to get chapter list",
+                        nextFunction: "showSignupForm"
+                    };
+                    api.makeApiCall();
+                },
+                checkEmail: function (email_address) {
+                    api.params = {
+                        spinnerMsg: 'Checking if your email address is in use',
+                        apiUrl: '/api/checkemail/' + email_address,
+                        storageKey: 'checkemail',
+                        successLogMsg: 'Results saved',
+                        failMsg: "I'm sorry, but I was unable to check if your email address is in use.  Please try again later.",
+                        failLogMsg: "Unable to check if email address in use",
+                        nextFunction: false
+                    };
+                    api.makeApiCall();
+                },
+                signupReady: function () {
+                    $.jStorage.set('signupReady', true);
+                    api.showSignupForm();
+                },
+                makeApiCall: function (params) {
+                    spinner(api.params.spinnerMsg);
+                    $.support.cors = true;
+
+                    var apiCall = $.ajax({
+                        url: oauth.baseUrl + api.params.apiUrl,
+                        type: "GET",
+                        crossDomain: true,
+                        cache: false,
+                        headers: {"cache-control": "no-cache"},
+                        async: true
+                    });
+                    apiCall.done(function (data) {
+                        $.jStorage.set(api.params.storageKey, data);
+                        console.log(api.params.successLogMsg);
+                        if (api.params.nextFunction) {
+                            api[api.params.nextFunction]();
+                        }
+                    });
+                    apiCall.fail(function () {
+                        SpinnerPlugin.activityStop();
+                        alert(api.params.failMsg);
+                        router.navigate('home');
+                    });
+                },
+                showSignupForm: function () {
+                    spinner('Please wait...');
+
+                    var countries = $.jStorage.get('countries', false);
+                    var branches = $.jStorage.get('branches', false);
+                    var chapters = $.extend({"": "Select a Chapter"}, $.jStorage.get('chapters'));
+
+                    if (countries && branches && chapters) {
+                        var logoTpl = medusa.templates.logo({imgClass: 'trmn-seal'});
+                        var navTpl = medusa.templates.nav({signupIsActive: true});
+                        var signupTpl = medusa.templates.signup({
+                            'countries': countries,
+                            'branches': branches,
+                            'chapters': chapters
+                        });
+                        updateScreen(navTpl + logoTpl + signupTpl);
+                        $('.selectpicker').selectize();
+
+                        $('#signup').multipage({
+                            enhanceNavigation: false,
+                            submitLabel: "Signup!",
+                            validationFunction: function (page) {
+                                var nf = $('fieldset.active div :required').length;
+                                var vf = $('fieldset.active div.has-success').length;
+                                console.log('nf = ' + nf + " vf = " + vf);
+
+                                if (page === 1) {
+
+                                    spinner('Please wait while I check to see if your email address is available.')
+
+                                    $.jStorage.deleteKey('checkemail');
+
+                                    $.support.cors = true;
+
+                                    var url = oauth.baseUrl + '/api/checkemail/' + $('#email_address').val();
+                                    console.log('Attempting to connect to ' + url);
+
+                                    var apiCall = $.ajax({
+                                        url: url,
+                                        type: "GET",
+                                        crossDomain: true,
+                                        cache: false,
+                                        headers: {"cache-control": "no-cache"},
+                                        async: true
+                                    });
+
+                                    apiCall.done(function (data) {
+                                        console.log('Email check complete: ' + JSON.stringify(data));
+
+                                        SpinnerPlugin.activityStop();
+
+                                        if (data.available && nf == vf) {
+                                            $('#signup').gotopage(2);
+                                        } else {
+                                            alert("Your email address is currently in use.  Please use a different email address");
+                                        }
+                                    });
+
+                                    apiCall.fail(function () {
+                                        SpinnerPlugin.activityStop();
+                                        alert("I was unable to check your email address.  Please try again later");
+                                        return false;
+                                    });
+                                } else {
+                                    if (nf == vf) {
+                                        return true;
+                                    }
+                                    return false;
+                                }
+                            }
+                        });
+
+                        $('form').submit(function () {
+                            alert("Submitted!");
+                            router.navigate('home');
+                        });
+
+                        $('#signup').validator();
+
+                    } else {
+                        alert('There was a problem with the signup form, please try again later.');
+                        router.navigate('home');
+                    }
+
+                }
+            };
+
             if (navigator.notification) { // Override default HTML alert with native dialog
                 window.alert = function (message) {
                     navigator.notification.alert(
@@ -331,6 +505,7 @@ var app = {
                     console.log('Deleting tokens in logout function');
                     $.jStorage.deleteKey('access_token');
                     $.jStorage.deleteKey('refresh_token');
+                    $.jStorage.deleteKey('countries');
 
                     window.requestFileSystem(window.PERSISTENT, 1 * 1024 * 1204, function (fs) {
                         console.log('File system open: ' + fs.name);
@@ -367,10 +542,7 @@ var app = {
                     updateScreen(navTpl + logoTpl + debugTpl);
                 },
                 'signup': function () {
-                    var logoTpl = medusa.templates.logo({imgClass: 'trmn-seal'});
-                    var navTpl = medusa.templates.nav({signupIsActive: true});
-                    var signupTpl = medusa.templates.signup();
-                    updateScreen(navTpl + logoTpl + signupTpl);
+                    api.getCountryList();
                 },
                 'idcard': function () {
                     var navTpl = medusa.templates.nav({idCardIsActive: true});
@@ -404,12 +576,13 @@ var app = {
                         var bodyTpl = medusa.templates.login({'username': usernmame});
 
                         updateScreen(navTpl + logoTpl + bodyTpl);
-                        bindLogin();
 
                         $('#login-form').validator();
                         console.log('Validator turned on');
                         $('#login-form').validator('update');
                         console.log('Validator updated');
+
+                        bindLogin();
                     }
                 }
             }).resolve();
@@ -418,6 +591,14 @@ var app = {
                 $('body').html(content);
                 router.updatePageLinks();
                 SpinnerPlugin.activityStop();
+            }
+
+            function showSignUp() {
+                var countries = $.jStorage.get('countries', false);
+                var logoTpl = medusa.templates.logo({imgClass: 'trmn-seal'});
+                var navTpl = medusa.templates.nav({signupIsActive: true});
+                var signupTpl = medusa.templates.signup({'countries': countries});
+                updateScreen(navTpl + logoTpl + signupTpl);
             }
 
             function showLogin() {
@@ -512,6 +693,7 @@ var app = {
                         });
 
                         login.done(function (data) {
+                            SpinnerPlugin.activityStop();
                             $.jStorage.set('access_token', data.access_token);
                             console.log('Access token saved');
                             $.jStorage.set('refresh_token', data.refresh_token);
@@ -521,7 +703,8 @@ var app = {
                         });
 
                         login.fail(function (jqXHR, textStatus) {
-                            alert("Login failed, please try again. MSG: ".textStatus);
+                            SpinnerPlugin.activityStop();
+                            alert("Login failed, please try again.");
                             router.navigate('login');
                         });
                     }

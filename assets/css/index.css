@@ -59,52 +59,82 @@ h1 {
     height: 100px;
 }
 
-#CIV {
+#branchCIV {
     content: url(../seals/CIV.png);
     width: 100px;
     height: 100px;
 }
 
-#GSN {
+#branchGSN {
     content: url(../seals/GSN.png);
     width: 100px;
     height: 100px;
 }
 
-#IAN {
+#branchIAN {
     content: url(../seals/IAN.png);
     width: 100px;
     height: 100px;
 }
 
-#INTEL {
+#branchINTEL {
     content: url(../seals/INTEL.png);
     width: 100px;
     height: 100px;
 }
 
-#RHN {
+#branchRHN {
     content: url(../seals/RHN.png);
     width: 100px;
     height: 100px;
 }
 
-#RMA {
+#branchRMA {
     content: url(../seals/RMA.png);
     width: 100px;
     height: 100px;
 }
 
-#RMMC {
+#branchRMMC {
     content: url(../seals/RMMC.png);
     width: 100px;
     height: 100px;
 }
 
-#RMN {
+#branchRMN {
     content: url(../seals/RMN.png);
     width: 100px;
     height: 100px;
+}
+
+#Order-of-the-Star-Kingdom {
+    content: url(../awards/orders/medals/Order-of-the-Star-Kingdom.svg);
+    width: 150px;
+    height: 150px;
+}
+
+#Order-of-King-Roger {
+    content: url(../awards/orders/medals/Order-of-King-Roger.svg);
+    width: 150px;
+    height: 150px;
+}
+
+#Order-of-the-Golden-Lion {
+    content: url(../awards/orders/medals/Order-of-the-Golden-Lion.svg);
+    width: 150px;
+    height: 150px;
+}
+
+#Order-of-Queen-Elizabeth {
+    content: url(../awards/orders/medals/Order-of-Queen-Elizabeth.svg);
+    width: 150px;
+    height: 150px;
+}
+
+#Order-of-Merit {
+    content: url(../awards/orders/medals/Order-of-Merit.svg);
+    width: 150px;
+    height: 150px;
 }
 
 .medusa-yellow {
@@ -194,29 +224,102 @@ a {
     text-decoration: none;
 }
 
+.has-error .help-block {
+    color: red !important;
+}
+
+.required {
+    border: 1px solid red;
+}
+
+.vertical-align {
+    display: flex;
+    align-items: center;
+}
+
 legend {
     color: #ffee00;
 }
 
+.multipage_nav {
+    border-top: 1px solid #CCC;
+    padding-top: 10px;
+}
+
+.multipage_nav a {
+    font-weight: bold;
+    display: block;
+    padding: 10px 20px;
+    color: #FFF;
+    text-shadow: #333 1px 1px 5px;
+    text-decoration: none;
+    -moz-box-shadow: 0px 0px 5px #333;
+    -webkit-box-shadow: 0px 0px 5px #333;
+}
+
 .multipage_nav .multipage_next {
-    float:right;
-	background: #a9db80; /* old browsers */
-	background: -moz-linear-gradient(top, #a9db80 0%, #96c56f 100%); /* firefox */
-
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#a9db80), color-stop(100%,#96c56f)); /* webkit */
-
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a9db80', endColorstr='#96c56f',GradientType=0 ); /* ie */
+    float: right;
+    background: #ee3300; /* old browsers */
 }
 
 .multipage_nav .multipage_back {
-	float:left;
-	background: #a9db80; /* old browsers */
-	background: -moz-linear-gradient(top, #a9db80 0%, #96c56f 100%); /* firefox */
-
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#a9db80), color-stop(100%,#96c56f)); /* webkit */
-
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a9db80', endColorstr='#96c56f',GradientType=0 ); /* ie */
+    float: left;
+    background: #ee3300; /* old browsers */
 }
 
+.multipage_nav .submit {
+    background: #ee3300; /* old browsers */
+}
 
+.multipage_nav .multipage_state {
+    display: block;
+    text-align: center;
+    width: 100px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 18px;
+}
+
+.multipage fieldset {
+    border: 0px;
+    padding: 10px;
+    margin: 0px;
+}
+
+div.clearer {
+    display: block;
+    visibility: hidden;
+    clear: both;
+    height: 0;
+    border-width: 0;
+    margin: 0;
+    padding: 0;
+}
+
+ul.multipage_tabs {
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+    border-bottom: 1px solid #CCC;
+    margin-bottom: 20px;
+}
+
+ul.multipage_tabs li {
+    display: block;
+    float: left;
+    margin-right: 20px;
+}
+
+ul.multipage_tabs li a {
+    display: block;
+    padding: 10px;
+}
+
+ul.multipage_tabs li.active {
+    background: #CCC;
+}
+
+div.selectize-dropdown {
+    top: -9px !important;
+}
 

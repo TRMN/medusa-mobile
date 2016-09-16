@@ -101,7 +101,7 @@
             } else {
                 $(id + '_nav .multipage_back').html('Back');
             }
-            if (settings.pages[page].title) {
+            if (settings.pages[page].title && settings.enhanceNavigation) {
                 $(id + '_nav .multipage_next').html('Next: ' + settings.pages[page].title);
             } else {
                 $(id + '_nav .multipage_next').html('Next');
@@ -119,9 +119,11 @@
     }
 
     jQuery.fn.validatePage = function (page) {
+        if (settings.validationFunction) {
+            return settings.validationFunction(page);
+        }
         return true;
     }
-
 
     jQuery.fn.validateAll = function () {
         for (x = 1; x <= settings.pages.length; x++) {
@@ -237,7 +239,7 @@
                 settings.navigationFunction($(this).getPages());
             } else {
                 // insert navigation
-
+                console.log('Generating form navigation buttons');
                 var id_name = $(this).attr('id');
                 $('<div class="multipage_nav" id="' + id_name + '_nav"><a href="#" class="multipage_back" onclick="return  $(\'' + id + '\').prevpage();">Back</a><a href="#"  class="multipage_next" onclick="return $(\'' + id + '\').nextpage();">Next</a><span class="multipage_state"></span><div class="clearer"></div></div>').insertAfter(this);
             }
