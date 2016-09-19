@@ -130,7 +130,7 @@ this["medusa"]["templates"]["memberinfo"] = Handlebars.template({"1":function(co
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data,blockParams,depths) {
     var stack1, alias1=container.lambda, alias2=container.escapeExpression, alias3=depth0 != null ? depth0 : {};
 
-  return "<div class=\"container-fluid\">\n    <div class=\"row\">\n        <div class=\"col-xs-12 text-center\">\n            <h4 class=\"medusa-yellow\">"
+  return "<div class=\"container-fluid\" id=\"profile\">\n    <div class=\"row\">\n        <div class=\"col-xs-12 text-center\">\n            <h4 class=\"medusa-yellow\">"
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.userinfo : depth0)) != null ? stack1.greeting : stack1), depth0))
     + "</h4>\n        </div>\n    </div>\n    <div class=\"row\">\n        <div class=\"col-xs-12 text-center\">\n            <span>"
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.userinfo : depth0)) != null ? stack1.member_id : stack1), depth0))
@@ -154,22 +154,43 @@ this["medusa"]["templates"]["memberinfo"] = Handlebars.template({"1":function(co
 },"useData":true,"useDepths":true,"useBlockParams":true});
 this["medusa"]["templates"]["nav"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
     return " class=\"active\"";
+},"3":function(container,depth0,helpers,partials,data) {
+    return "Home";
+},"5":function(container,depth0,helpers,partials,data) {
+    return "Login";
+},"7":function(container,depth0,helpers,partials,data) {
+    var stack1;
+
+  return "                    <li"
+    + ((stack1 = helpers["if"].call(depth0 != null ? depth0 : {},(depth0 != null ? depth0.idCardIsActive : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "><a href=\"idcard\" data-navigo>ID Card</a></li>\n";
+},"9":function(container,depth0,helpers,partials,data) {
+    return "<li><a href=\"refresh\" data-navigo>Reload User Info</a></li>";
+},"11":function(container,depth0,helpers,partials,data) {
+    return "<li><a href=\"logout\" data-navigo>Logout</a></li>";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1, alias1=depth0 != null ? depth0 : {};
 
-  return "<nav role=\"navigation\" class=\"navbar navbar-default navbar-fixed-top navbar-inverse\">\n    <div class=\"container\">\n        <!-- Brand and toggle get grouped for better mobile display -->\n        <div class=\"navbar-header\">\n            <button type=\"button\" data-target=\"#navbarCollapse\" data-toggle=\"collapse\" class=\"navbar-toggle\">\n                <span class=\"sr-only\">Toggle navigation</span>\n                <span class=\"icon-bar\"></span>\n                <span class=\"icon-bar\"></span>\n                <span class=\"icon-bar\"></span>\n            </button>\n            <a href=\"#\" class=\"navbar-brand medusa-yellow\">MEDUSA Mobile</a>\n        </div>\n        <!-- Collection of nav links and other content for toggling -->\n        <div id=\"navbarCollapse\" class=\"collapse navbar-collapse\">\n            <ul class=\"nav navbar-nav\">\n                <li"
+  return "<nav role=\"navigation\" class=\"navbar navbar-default navbar-fixed-top navbar-inverse\">\n    <div class=\"container\">\n        <!-- Brand and toggle get grouped for better mobile display -->\n        <div class=\"navbar-header\">\n            <button type=\"button\" data-target=\"#navbarCollapse\" data-toggle=\"collapse\" class=\"navbar-toggle\">\n                <span class=\"sr-only\">Toggle navigation</span>\n                <span class=\"icon-bar\"></span>\n                <span class=\"icon-bar\"></span>\n                <span class=\"icon-bar\"></span>\n            </button>\n        </div>\n        <!-- Collection of nav links and other content for toggling -->\n        <div id=\"navbarCollapse\" class=\"collapse navbar-collapse\">\n            <ul class=\"nav navbar-nav\">\n                <li"
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.homeIsActive : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + "><a href=\"home\" data-navigo>Home</a></li>\n                <li"
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.profileIsActive : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "><a\n                        href=\"home\" data-navigo>"
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.profileIsActive : depth0),{"name":"if","hash":{},"fn":container.program(3, data, 0),"inverse":container.program(5, data, 0),"data":data})) != null ? stack1 : "")
+    + "</a></li>\n                <li"
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.signupIsActive : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + "><a href=\"signup\" data-navigo>New Member Signup</a></li>\n                <li"
-    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.idCardIsActive : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + "><a href=\"idcard\" data-navigo>Show ID Card</a></li>\n                <li"
-    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.setupIsActive : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + "><a href=\"setup\" data-navigo>Setup</a></li>\n                <li"
+    + "><a href=\"signup\" data-navigo>New Member Signup</a></li>\n"
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.loggedIn : depth0),{"name":"if","hash":{},"fn":container.program(7, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "                <li class=\"dropdown\">\n                    <a id=\"help\" href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\"\n                       aria-expanded=\"false\"><span class=\"fi-arrow-down\"></span> Help</a>\n                    <ul class=\"dropdown-menu\">\n                        <li"
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.aboutIsActive : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + "><a href=\"about\" data-navigo>About</a></li>\n                <li role=\"separator\" class=\"divider\"></li>\n                <li><a href=\"refresh\" data-navigo>Reload User Info</a></li>\n                <li role=\"separator\" class=\"divider\"></li>\n                <li"
+    + "><a href=\"about\" data-navigo>About</a></li>\n                        <li"
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.setupIsActive : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "><a href=\"setup\" data-navigo>Setup</a></li>\n                        "
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.loggedIn : depth0),{"name":"if","hash":{},"fn":container.program(9, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "\n                        <li"
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.debugIsActive : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + "><a href=\"debug\" data-navigo>Show Debug info</a></li>\n                <li><a href=\"logout\" data-navigo>Logout</a></li>\n            </ul>\n        </div>\n    </div>\n</nav>";
+    + "><a href=\"debug\" data-navigo>Show Debug info</a>\n                        </li>\n                    </ul>\n                </li>\n                "
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.loggedIn : depth0),{"name":"if","hash":{},"fn":container.program(11, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "\n            </ul>\n        </div>\n    </div>\n</nav>";
 },"useData":true});
 this["medusa"]["templates"]["photo"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var helper;

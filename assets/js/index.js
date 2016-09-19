@@ -28,31 +28,42 @@ var app = {
     bindEvents: function () {
         window.addEventListener("orientationchange", function () {
 
-            var width = screen.width;
-            var height = screen.height;
+            window.setTimeout(changeIdCardSize, 500); // iOS has a delay in reporting
 
-            console.log("Screen orientation is: " + screen.orientation.type);
+            function changeIdCardSize() {
+                var width = screen.width;
+                var height = screen.height;
+                var orientation = (typeof screen.orientation.type === 'undefined') ? screen.orientation : screen.orientation.type;
 
-            switch (screen.orientation.type) {
-                case 'landscape':
-                case 'landscape-primary':
-                case 'landscape-secondary':
-                    if (height > 640) {
-                        height = 640;
-                    }
-                    console.log('Changing height to ' + (height - 30));
-                    $('#idcard').css({'height': height - 30, 'width': 'auto', 'border': '1px solid black'});
-                    break;
-                case 'portrait':
-                case 'portrait-primary':
-                case 'portrait-secondary':
-                    if (width > 1010) {
-                        width = 1010;
-                    }
-                    console.log('Changing width to ' + width);
-                    $('#idcard').css({'height': 'auto', 'width': width, 'border': '1px solid black'});
-                    break;
+                console.log("Screen orientation is: " + orientation);
+
+                switch (orientation) {
+                    case 'landscape':
+                    case 'landscape-primary':
+                    case 'landscape-secondary':
+                        if (device.platform == 'iOS') {
+                            // iOS quirk
+                            var width = screen.height;
+                            var height = screen.width;
+                        }
+                        if (height > 640) {
+                            height = 640;
+                        }
+                        console.log('Changing height to ' + (height - 30));
+                        $('#idcard').css({'height': height - 30, 'width': 'auto', 'border': '1px solid black'});
+                        break;
+                    case 'portrait':
+                    case 'portrait-primary':
+                    case 'portrait-secondary':
+                        if (width > 1010) {
+                            width = 1010;
+                        }
+                        console.log('Changing width to ' + width);
+                        $('#idcard').css({'height': 'auto', 'width': width, 'border': '1px solid black'});
+                        break;
+                }
             }
+
         });
 
         document.addEventListener('deviceready', function () {
@@ -62,6 +73,15 @@ var app = {
                 console.log(msg);
             }
 
+            // $('body').bind('touchmove', function (ev) {
+            //     // if ($('#profile').length) {
+            //     //     oauth.getUserInfo();
+            //     // } else {
+            //         ev.preventDefault();
+            //     // }
+            //
+            // });
+
             Handlebars.registerHelper('ifvalue', function (conditional, options) {
                 if (options.hash.value === conditional) {
                     return options.fn(this)
@@ -69,6 +89,15 @@ var app = {
                     return options.inverse(this);
                 }
             });
+
+            // $('body').on('click', function(event) {
+            //     console.log('Checking if we\'re outside the menu');
+            //     console.log('Clicked on ' + JSON.stringify((this).id));
+            //     // if (event.target.id !== 'navbarCollapse') {
+            //     //     console.log('Outside the menu');
+            //     //     // $('.navbar-collapse').collapse('hide');
+            //     // }
+            // });
 
             var oauth = {
                 baseUrl: $.jStorage.get('baseURL', 'https://medusa.trmn.org'),
@@ -80,6 +109,10 @@ var app = {
                     oauth.access_token = $.jStorage.get('access_token', false);
                     oauth.refresh_token = $.jStorage.get('refresh_token', false);
                 },
+                reloadConfig: function () {
+                    oauth.baseUrl = $.jStorage.get('baseURL', 'https://medusa.trmn.org');
+                    oauth.reloadTokens();
+                },
                 cache_buster: function () {
                     var currentTime = new Date();
                     return currentTime.getTime();
@@ -87,18 +120,18 @@ var app = {
                 tryRefresh: function (msg, fn, alertMsg) {
                     alertMsg = (typeof alertMsg === 'undefined') ? false : alertMsg;
 
-                    if (!$.jStorage.get('refreshRetry', false)) {
+                    if ($.jStorage.get('refreshRetry', false) === false) {
                         console.log("Error getting " + msg + ", attempting to refresh token");
                         // First attempt, try to use the refresh token.  Let's tell that function where to return to
                         $.jStorage.set('refreshRetry', fn);
                         console.log('refreshRetry set to ' + $.jStorage.get('refreshRetry', false));
                         oauth.refreshToken();
+                    } else {
+                        if (alertMsg) {
+                            alert(alertMsg);
+                        }
+                        showLogin();
                     }
-
-                    if (alertMsg) {
-                        alert(alertMsg);
-                    }
-                    showLogin();
                 },
                 getTisTig: function () {
                     spinner('Getting Time In Service / Time In Grade');
@@ -120,6 +153,7 @@ var app = {
                         userInfo.tis = data.tis;
 
                         $.jStorage.set('userInfo', userInfo);
+                        oauth.reloadConfig();
                         showProfile();
                     });
 
@@ -129,6 +163,7 @@ var app = {
                         userInfo.tis = "Unknown";
 
                         $.jStorage.set('userInfo', userInfo);
+                        oauth.reloadConfig();
                         showProfile();
                     });
                 },
@@ -146,6 +181,7 @@ var app = {
                     });
                     profile.done(function (data) {
                         $.jStorage.set('userInfo', data);
+                        oauth.reloadConfig();
                         console.log('User info retrieved and saved');
                         console.log('User Info from server: ' + JSON.stringify(data));
                         oauth.getIdCard();
@@ -175,6 +211,7 @@ var app = {
                                 function (entry) {
                                     console.log('Download complete: ' + entry.toURL());
                                     $.jStorage.set('idCardUri', entry.toURL());
+                                    oauth.reloadConfig();
                                 },
                                 function (error) {
                                     console.log("download error source " + error.source);
@@ -212,7 +249,10 @@ var app = {
                         console.log('Got last update timestamp: ' + JSON.stringify(data));
                         $.jStorage.deleteKey('refreshRetry'); // Last update timestamp received, clear the flag
                         $.jStorage.set('serverLastUpdated', data.lastUpdate);
+                        oauth.reloadConfig();
                         var userInfo = $.jStorage.get('userInfo', false);
+
+                        oauth.getIdCard();
 
                         if (data.lastUpdate) {
                             // We got a timestamp, compare them
@@ -229,8 +269,9 @@ var app = {
                         }
                     });
                     updatecheck.fail(function (jqXHR, textStatus) {
+                        console.log('Update check failed');
                         oauth.tryRefresh('last update timestamp', 'getLastUpdate', false);
-                        showLogin();
+                        // showLogin();
                     });
                 },
                 refreshToken: function () {
@@ -252,10 +293,12 @@ var app = {
                         console.log('Access token saved');
                         $.jStorage.set('refresh_token', data.refresh_token);
                         console.log("Refresh token saved.  Let's try again");
+                        oauth.reloadConfig();
                         // Make sure we don't end up in a loop
                         returnFn = $.jStorage.get('refreshRetry', false);
+                        $.jStorage.deleteKey('refreshRetry');
                         if (returnFn) {
-                            console.log('refreshRetury: ' + returnFn);
+                            console.log('refreshRetry: ' + returnFn);
                             oauth[returnFn]();
                         }
                         // Don't know who sent them here, so go back to the login page
@@ -356,7 +399,7 @@ var app = {
 
                     if (countries && branches && chapters) {
                         var logoTpl = medusa.templates.logo({imgClass: 'trmn-seal'});
-                        var navTpl = medusa.templates.nav({signupIsActive: true});
+                        var navTpl = medusa.templates.nav({signupIsActive: true, loggedIn: checkIfLoggedIn()});
                         var signupTpl = medusa.templates.signup({
                             'countries': countries,
                             'branches': branches,
@@ -420,7 +463,7 @@ var app = {
                         });
 
                         $('form').submit(function () {
-                            alert("Submitted!");
+                            alert("Submitted!" + $('form').serialize());
                             router.navigate('home');
                         });
 
@@ -458,6 +501,7 @@ var app = {
             function onConfirm(buttonIndex) {
                 if (buttonIndex == 1) {
                     $.jStorage.set('baseURL', $('#server-url').val().toLowerCase());
+                    oauth.reloadConfig();
                     router.navigate('home');
                     router.updatePageLinks();
                 } else {
@@ -470,19 +514,28 @@ var app = {
             var router = new Navigo();
             var logoTpl = medusa.templates.logo({imgClass: 'project-medusa'});
 
+            function checkIfLoggedIn() {
+                var userInfo = $.jStorage.get('userInfo', false);
+
+                if (userInfo) {
+                    return true;
+                }
+
+                return false;
+            }
+
             router.on({
                 'about': function () {
-                    //var AppVersion = '0.0.3';
                     cordova.getAppVersion.getVersionNumber().then(function (version) {
                         var AppVersion = version;
-                        var navTpl = medusa.templates.nav({aboutIsActive: true});
+                        var navTpl = medusa.templates.nav({aboutIsActive: true, loggedIn: checkIfLoggedIn()});
                         var aboutTpl = medusa.templates.about({version: AppVersion});
                         updateScreen(navTpl + logoTpl + aboutTpl);
                     });
                 },
                 'setup': function () {
                     var medusaURL = $.jStorage.get('baseURL', 'https://medusa.trmn.org');
-                    var navTpl = medusa.templates.nav({setupIsActive: true});
+                    var navTpl = medusa.templates.nav({setupIsActive: true, loggedIn: checkIfLoggedIn()});
                     var config = {url: medusaURL};
 
                     if (medusaURL == 'https://medusa.trmn.org') {
@@ -525,7 +578,7 @@ var app = {
                     oauth.getUserInfo();
                 },
                 'debug': function () {
-                    var navTpl = medusa.templates.nav({debugIsActive: true});
+                    var navTpl = medusa.templates.nav({debugIsActive: true, loggedIn: checkIfLoggedIn()});
                     var debugInfo = {
                         systemInfo: {
                             baseUrl: oauth.baseUrl,
@@ -545,7 +598,6 @@ var app = {
                     api.getCountryList();
                 },
                 'idcard': function () {
-                    var navTpl = medusa.templates.nav({idCardIsActive: true});
                     var idCardUri = $.jStorage.get('idCardUri', false);
 
                     if (!idCardUri) {
@@ -566,9 +618,8 @@ var app = {
                 },
                 '*': function () {
 
-                    var navTpl = medusa.templates.nav({homeIsActive: true});
-                    var userInfo = $.jStorage.get('userInfo', false);
-                    if (userInfo) {
+                    var navTpl = medusa.templates.nav({homeIsActive: true, loggedIn: checkIfLoggedIn()});
+                    if (checkIfLoggedIn()) {
                         router.navigate('profile');
                         return false;
                     } else {
@@ -596,7 +647,7 @@ var app = {
             function showSignUp() {
                 var countries = $.jStorage.get('countries', false);
                 var logoTpl = medusa.templates.logo({imgClass: 'trmn-seal'});
-                var navTpl = medusa.templates.nav({signupIsActive: true});
+                var navTpl = medusa.templates.nav({signupIsActive: true, loggedIn: checkIfLoggedIn()});
                 var signupTpl = medusa.templates.signup({'countries': countries});
                 updateScreen(navTpl + logoTpl + signupTpl);
             }
@@ -633,7 +684,7 @@ var app = {
             }
 
             function showProfile() {
-                var navTpl = medusa.templates.nav({profileIsActive: true});
+                var navTpl = medusa.templates.nav({profileIsActive: true, loggedIn: checkIfLoggedIn()});
                 var userInfo = $.jStorage.get('userInfo', false);
                 console.log('User Info from storage: ' + JSON.stringify(userInfo));
                 var photoTpl = '';
@@ -676,6 +727,7 @@ var app = {
                         var password = $('#password').val();
 
                         $.jStorage.set('username', username);
+                        oauth.reloadConfig();
 
                         $.support.cors = true;
 
@@ -698,6 +750,7 @@ var app = {
                             console.log('Access token saved');
                             $.jStorage.set('refresh_token', data.refresh_token);
                             console.log('Refresh token saved');
+                            oauth.reloadConfig();
                             oauth.reloadTokens();
                             oauth.getUserInfo();
                         });

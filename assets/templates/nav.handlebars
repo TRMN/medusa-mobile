@@ -8,21 +8,28 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a href="#" class="navbar-brand medusa-yellow">MEDUSA Mobile</a>
         </div>
         <!-- Collection of nav links and other content for toggling -->
         <div id="navbarCollapse" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li{{#if homeIsActive}} class="active"{{/if}}><a href="home" data-navigo>Home</a></li>
+                <li{{#if homeIsActive}} class="active"{{/if}}{{#if profileIsActive}} class="active"{{/if}}><a
+                        href="home" data-navigo>{{#if profileIsActive}}Home{{else}}Login{{/if}}</a></li>
                 <li{{#if signupIsActive}} class="active"{{/if}}><a href="signup" data-navigo>New Member Signup</a></li>
-                <li{{#if idCardIsActive}} class="active"{{/if}}><a href="idcard" data-navigo>Show ID Card</a></li>
-                <li{{#if setupIsActive}} class="active"{{/if}}><a href="setup" data-navigo>Setup</a></li>
-                <li{{#if aboutIsActive}} class="active"{{/if}}><a href="about" data-navigo>About</a></li>
-                <li role="separator" class="divider"></li>
-                <li><a href="refresh" data-navigo>Reload User Info</a></li>
-                <li role="separator" class="divider"></li>
-                <li{{#if debugIsActive}} class="active"{{/if}}><a href="debug" data-navigo>Show Debug info</a></li>
-                <li><a href="logout" data-navigo>Logout</a></li>
+                {{#if loggedIn}}
+                    <li{{#if idCardIsActive}} class="active"{{/if}}><a href="idcard" data-navigo>ID Card</a></li>
+                {{/if}}
+                <li class="dropdown">
+                    <a id="help" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false"><span class="fi-arrow-down"></span> Help</a>
+                    <ul class="dropdown-menu">
+                        <li{{#if aboutIsActive}} class="active"{{/if}}><a href="about" data-navigo>About</a></li>
+                        <li{{#if setupIsActive}} class="active"{{/if}}><a href="setup" data-navigo>Setup</a></li>
+                        {{#if loggedIn}}<li><a href="refresh" data-navigo>Reload User Info</a></li>{{/if}}
+                        <li{{#if debugIsActive}} class="active"{{/if}}><a href="debug" data-navigo>Show Debug info</a>
+                        </li>
+                    </ul>
+                </li>
+                {{#if loggedIn}}<li><a href="logout" data-navigo>Logout</a></li>{{/if}}
             </ul>
         </div>
     </div>
