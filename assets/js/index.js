@@ -463,8 +463,27 @@ var app = {
                         });
 
                         $('form').submit(function () {
-                            alert("Submitted!" + $('form').serialize());
-                            router.navigate('home');
+                            spinner('Sending membership application');
+
+                            var newUser = $.ajax({
+                                url: oauth.baseUrl + '/apply',
+                                type: "POST",
+                                crossDomain: true,
+                                cache: false,
+                                headers: {"cache-control": "no-cache"},
+                                async: true,
+                                data: $('form').serialize() + "&mobile=1"
+                            });
+
+                            newUser.done(function () {
+                                router.navigate('thankyou');
+                            });
+
+                            newUser.fail(function () {
+                                SpinnerPlugin.activityStop();
+                                alert('There was a problem submitting your membership application.  Please try again later.');
+                                router.navigate('home');
+                            });
                         });
 
                         $('#signup').validator();
@@ -596,6 +615,12 @@ var app = {
                 },
                 'signup': function () {
                     api.getCountryList();
+                },
+                'thankyou': function () {
+                    var logoTpl = medusa.templates.logo({imgClass: 'trmn-seal'});
+                    var navTpl = medusa.templates.nav({signupIsActive: true, loggedIn: checkIfLoggedIn()});
+                    var tyTpl = medusa.templates.thankyou();
+                    updateScreen(navTpl + logoTpl + tyTpl);
                 },
                 'idcard': function () {
                     var idCardUri = $.jStorage.get('idCardUri', false);

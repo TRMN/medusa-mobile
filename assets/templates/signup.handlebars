@@ -134,7 +134,7 @@
                 <div class="input-group">
                     <span class="input-group-addon fi-home" id="state-addon"></span>
                     <input type="text" class="form-control required" placeholder="State or Province"
-                           aria-describedby="state-addon" name="state" required
+                           aria-describedby="state-addon" name="state_province" required
                            data-error="State or Province is required">
                     <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                 </div>
@@ -144,7 +144,7 @@
                 <div class="input-group">
                     <span class="input-group-addon fi-home" id="postalcode-addon"></span>
                     <input type="text" class="form-control required" placeholder="Zip/Postal Code"
-                           aria-describedby="postalcode-addon" name="postalcode" required
+                           aria-describedby="postalcode-addon" name="postal_code" required
                            data-error="Zip/Postal Code is required">
                     <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                 </div>
@@ -183,7 +183,7 @@
             <div class="form-group has-feedback">
                 <div class="input-group vertical-align">
                     <label class="col-xs-4">Chapter</label>
-                    <select class="form-control required selectpicker" name="chapter" required
+                    <select class="form-control required selectpicker" name="primary_assignment" required
                             data-error="You must choose a chapter">
                         {{#each chapters as |name code|}}
                             <option value="{{code}}">{{name}}</option>
@@ -196,7 +196,7 @@
             <div class="form-group has-feedback">
                 <div class="input-group vertical-align checkbox-inline">
                     <label>
-                        <input type="checkbox" required data-error="You must agree to the Terms of Service"> I have read
+                        <input type="checkbox" required data-error="You must agree to the Terms of Service" name="tos"> I have read
                         and agree to the Terms of Service
                     </label>
                 </div>
