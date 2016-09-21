@@ -1,6 +1,13 @@
-<h2>Membership Application</h2>
+{{#ifvalue formId value="signup"}}
+    <h2>Membership Application</h2>
+{{else}}
+    <h2>Edit Profile</h2>
+{{/ifvalue}}
 <div class="container-fluid">
-    <form id="signup" data-toggle="validator" class="form-horizontal">
+    <form id="{{formId}}" data-toggle="validator" class="form-horizontal">
+        {{#ifvalue formId value="editUser"}}
+            <input type="hidden" name="id" value="{{userInfo._id}}">
+        {{/ifvalue}}
         <fieldset>
             <legend>Basic Information</legend>
             <div class="form-group has-feedback">
@@ -8,7 +15,8 @@
                     <span class="input-group-addon fi-torso" id="firstname-addon"></span>
                     <input type="text" class="form-control required" placeholder="First Name"
                            aria-describedby="firstname-addon"
-                           name="first_name" data-error="First Name is required" required data-minLength="2">
+                           name="first_name" value="{{userInfo.first_name}}" data-error="First Name is required"
+                           required data-minLength="2">
                     <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                 </div>
                 <div class="help-block with-errors"></div>
@@ -18,7 +26,7 @@
                     <span class="input-group-addon fi-torso" id="middlename-addon"></span>
                     <input type="text" class="form-control" placeholder="Middle Name"
                            aria-describedby="middlename-addon"
-                           name="middle_name">
+                           name="middle_name" value="{{userInfo.middle_name}}">
                     <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                 </div>
             </div>
@@ -26,7 +34,7 @@
                 <div class="input-group">
                     <span class="input-group-addon fi-torso" id="lastname-addon"></span>
                     <input type="text" class="form-control required" placeholder="Last Name"
-                           aria-describedby="lastname-addon"
+                           aria-describedby="lastname-addon" value="{{userInfo.last_name}}"
                            name="last_name" data-error="Last Name is required" required data-minLength="2">
                     <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                 </div>
@@ -38,64 +46,68 @@
                     <label class="col-xs-4">Suffix</label>
                     <select class="form-control selectpicker" name="suffix" aria-describedby="suffix-addon">
                         <option value="">None</option>
-                        <option>Jr</option>
-                        <option>Sr</option>
-                        <option>II</option>
-                        <option>III</option>
-                        <option>IV</option>
-                        <option>V</option>
+                        <option{{#ifvalue userInfo.suffix value="Jr"}} selected{{/ifvalue}}>Jr</option>
+                        <option{{#ifvalue userInfo.suffix value="Sr"}} selected{{/ifvalue}}>Sr</option>
+                        <option{{#ifvalue userInfo.suffix value="II"}} selected{{/ifvalue}}>II</option>
+                        <option{{#ifvalue userInfo.suffix value="III"}} selected{{/ifvalue}}>III</option>
+                        <option{{#ifvalue userInfo.suffix value="IV"}} selected{{/ifvalue}}>IV</option>
+                        <option{{#ifvalue userInfo.suffix value="V"}} selected{{/ifvalue}}>V</option>
                     </select>
                 </div>
             </div>
+            {{#ifvalue formId value="signup"}}
+                <div class="form-group has-feedback">
+                    <div class="input-group">
+                        <span class="input-group-addon fi-at-sign" id="email-addon"></span>
+                        <input type="email" class="form-control required" placeholder="Email address"
+                               aria-describedby="email-addon" id="email_address"
+                               name="email_address" data-error="Invalid email address" required>
+                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                    </div>
+                    <div class="help-block with-errors"></div>
+                </div>
 
-            <div class="form-group has-feedback">
-                <div class="input-group">
-                    <span class="input-group-addon fi-at-sign" id="email-addon"></span>
-                    <input type="email" class="form-control required" placeholder="Email address"
-                           aria-describedby="email-addon" id="email_address"
-                           name="email_address" data-error="Invalid email address" required>
-                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                <div class="form-group has-feedback">
+                    <div class="input-group">
+                        <span class="input-group-addon fi-at-sign" id="emailconform-addon"></span>
+                        <input type="email" class="form-control required" placeholder="Re-enter email address"
+                               aria-describedby="email-addon"
+                               name="email_address_confirm" data-error="Email address don't match"
+                               data-match="#email_address"
+                               required>
+                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                    </div>
+                    <div class="help-block with-errors"></div>
                 </div>
-                <div class="help-block with-errors"></div>
-            </div>
 
-            <div class="form-group has-feedback">
-                <div class="input-group">
-                    <span class="input-group-addon fi-at-sign" id="emailconform-addon"></span>
-                    <input type="email" class="form-control required" placeholder="Re-enter email address"
-                           aria-describedby="email-addon"
-                           name="email_address" data-error="Email address don't match" data-match="#email_address"
-                           required>
-                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                <div class="form-group has-feedback">
+                    <div class="input-group">
+                        <span class="input-group-addon fi-key" id="password-addon"></span>
+                        <input type="password" class="form-control required" placeholder="Password"
+                               aria-describedby="password-addon"
+                               id="password" name="password"
+                               data-error="Please enter a password of at least 6 characters" required
+                               data-minLength="6">
+                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                    </div>
+                    <div class="help-block with-errors"></div>
                 </div>
-                <div class="help-block with-errors"></div>
-            </div>
-
-            <div class="form-group has-feedback">
-                <div class="input-group">
-                    <span class="input-group-addon fi-key" id="password-addon"></span>
-                    <input type="password" class="form-control required" placeholder="Password"
-                           aria-describedby="password-addon"
-                           id="password" name="password" data-error="Please enter a password of at least 6 characters" required data-minLength="6">
-                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                <div class="form-group has-feedback">
+                    <div class="input-group">
+                        <span class="input-group-addon fi-key" id="password2-addon"></span>
+                        <input type="password" class="form-control required" placeholder="Re-enter Password"
+                               aria-describedby="password2-addon"
+                               data-error="Passwords don't match" data-match="#password" required>
+                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                    </div>
+                    <div class="help-block with-errors"></div>
                 </div>
-                <div class="help-block with-errors"></div>
-            </div>
-            <div class="form-group has-feedback">
-                <div class="input-group">
-                    <span class="input-group-addon fi-key" id="password2-addon"></span>
-                    <input type="password" class="form-control required" placeholder="Re-enter Password"
-                           aria-describedby="password2-addon"
-                           data-error="Passwords don't match" data-match="#password" required>
-                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
-                </div>
-                <div class="help-block with-errors"></div>
-            </div>
+            {{/ifvalue}}
             <div class="form-group has-feedback">
                 <div class="input-group vertical-align">
                     <label class="col-xs-4">Date of Birth</label>
                     <input type="date" class="form-control required" aria-describedby="dob-addon"
-                           name="dob" data-error="Date of birth is required" required>
+                           name="dob" data-error="Date of birth is required" required value="{{userInfo.dob}}">
                 </div>
                 <div class="help-block with-errors"></div>
             </div>
@@ -108,7 +120,7 @@
                     <span class="input-group-addon fi-home" id="address-addon"></span>
                     <input type="text" class="form-control required" placeholder="Street Address"
                            aria-describedby="address-addon" name="address1" data-error="A street address is required"
-                           required>
+                           required value="{{userInfo.address1}}">
                     <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                 </div>
                 <div class="help-block with-errors"></div>
@@ -117,7 +129,7 @@
                 <div class="input-group has-feedback">
                     <span class="input-group-addon fi-home" id="address2-addon"></span>
                     <input type="text" class="form-control" placeholder="Apartment, unit, building, etc"
-                           aria-describedby="address2-addon" name="address2">
+                           aria-describedby="address2-addon" name="address2" value="{{userInfo.address2}}">
                     <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                 </div>
             </div>
@@ -125,7 +137,7 @@
                 <div class="input-group">
                     <span class="input-group-addon fi-home" id="city-addon"></span>
                     <input type="text" class="form-control required" placeholder="City" aria-describedby="city-addon"
-                           name="city" required data-error="City is required">
+                           name="city" required data-error="City is required" value="{{userInfo.city}}">
                     <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                 </div>
                 <div class="help-block with-errors"></div>
@@ -135,7 +147,7 @@
                     <span class="input-group-addon fi-home" id="state-addon"></span>
                     <input type="text" class="form-control required" placeholder="State or Province"
                            aria-describedby="state-addon" name="state_province" required
-                           data-error="State or Province is required">
+                           data-error="State or Province is required" value="{{userInfo.state_province}}">
                     <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                 </div>
                 <div class="help-block with-errors"></div>
@@ -145,7 +157,7 @@
                     <span class="input-group-addon fi-home" id="postalcode-addon"></span>
                     <input type="text" class="form-control required" placeholder="Zip/Postal Code"
                            aria-describedby="postalcode-addon" name="postal_code" required
-                           data-error="Zip/Postal Code is required">
+                           data-error="Zip/Postal Code is required" value="{{userInfo.postal_code}}">
                     <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                 </div>
                 <div class="help-block with-errors"></div>
@@ -153,56 +165,59 @@
             <div class="form-group has-feedback">
                 <div class="input-group vertical-align">
                     <label class="col-xs-4">Country</label>
-                    <select class="form-control required selectpicker" name="country" required
+                    <select class="form-control required selectpicker" id="country" name="country" required
                             data-error="Please choose your country">
                         {{#each countries as |name code|}}
-                            <option value="{{code}}">{{name}}</option>
+                            <option value="{{code}}"{{#ifvalue code value=userInfo.country}}
+                                    selected{{/ifvalue}}>{{name}}</option>
                         {{/each}}
                     </select>
                 </div>
                 <div class="help-block with-errors"></div>
             </div>
         </fieldset>
+        {{#ifvalue formId value="signup"}}
+            <fieldset>
+                <legend>Branch and Chapter</legend>
 
-        <fieldset>
-            <legend>Branch and Chapter</legend>
-
-            <div class="form-group has-feedback">
-                <div class="input-group vertical-align">
-                    <label class="col-xs-4">Branch</label>
-                    <select class="form-control required selectpicker" name="branch" required
-                            data-error="You must choose a branch">
-                        {{#each branches as |name code|}}
-                            <option value="{{code}}">{{name}}</option>
-                        {{/each}}
-                    </select>
+                <div class="form-group has-feedback">
+                    <div class="input-group vertical-align">
+                        <label class="col-xs-4">Branch</label>
+                        <select class="form-control required selectpicker" name="branch" required
+                                data-error="You must choose a branch">
+                            {{#each branches as |name code|}}
+                                <option value="{{code}}">{{name}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+                    <div class="help-block with-errors"></div>
                 </div>
-                <div class="help-block with-errors"></div>
-            </div>
 
-            <div class="form-group has-feedback">
-                <div class="input-group vertical-align">
-                    <label class="col-xs-4">Chapter</label>
-                    <select class="form-control required selectpicker" name="primary_assignment" required
-                            data-error="You must choose a chapter">
-                        {{#each chapters as |name code|}}
-                            <option value="{{code}}">{{name}}</option>
-                        {{/each}}
-                    </select>
+                <div class="form-group has-feedback">
+                    <div class="input-group vertical-align">
+                        <label class="col-xs-4">Chapter</label>
+                        <select class="form-control required selectpicker" name="primary_assignment" required
+                                data-error="You must choose a chapter">
+                            {{#each chapters as |name code|}}
+                                <option value="{{code}}">{{name}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+                    <div class="help-block with-errors"></div>
                 </div>
-                <div class="help-block with-errors"></div>
-            </div>
 
-            <div class="form-group has-feedback">
-                <div class="input-group vertical-align checkbox-inline">
-                    <label>
-                        <input type="checkbox" required data-error="You must agree to the Terms of Service" name="tos"> I have read
-                        and agree to the Terms of Service
-                    </label>
+                <div class="form-group has-feedback">
+                    <div class="input-group vertical-align checkbox-inline">
+                        <label class="checkbox-inline">
+                            <input type="checkbox" required data-error="You must agree to the Terms of Service"
+                                   name="tos">
+                            I have read and agree to the Terms of Service
+                        </label>
+                    </div>
+                    <div class="help-block with-errors"></div>
                 </div>
-                <div class="help-block with-errors"></div>
-            </div>
-            <input type="submit" value="Signup!"/>
-        </fieldset>
+                <input type="submit" value="Signup!"/>
+            </fieldset>
+        {{/ifvalue}}
     </form>
 </div>
