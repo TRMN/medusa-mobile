@@ -415,14 +415,16 @@ var app = {
 
                                 $('#editUser').submit(function () {
                                     spinner('Updating profile');
+                                    var url = oauth.baseUrl + '/oauth/updateuser?access_token=' + oauth.access_token + "&client_id=" + oauth.client_id + '&nocache=' + oauth.cache_buster();
 
+                                    console.log('Posting profile upate to ' + url);
                                     var updateProfile = $.ajax({
-                                        url: oauth.baseUrl + '/oauth/updateuser?access_token=' + oauth.access_token + "&client_id=" + oauth.client_id + '&nocache=' + oauth.cache_buster(),
+                                        url: url,
                                         type: "POST",
                                         crossDomain: true,
                                         cache: false,
                                         headers: {"cache-control": "no-cache"},
-                                        async: true,
+                                        async: false,
                                         data: $('#editUser').serialize()
                                     });
 
@@ -434,6 +436,7 @@ var app = {
 
                                     updateProfile.fail(function () {
                                         SpinnerPlugin.activityStop();
+                                        console.log('Profile update failed');
                                         alert('There was a problem updating your profile.  Please try again later.');
                                         router.navigate('home');
                                     });
