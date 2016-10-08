@@ -108,33 +108,28 @@ h1 {
 }
 
 #Order-of-the-Star-Kingdom {
-    content: url(../awards/orders/medals/Order-of-the-Star-Kingdom.svg);
+    content: url(../awards/orders/medals/Order-of-the-Star-Kingdom.png);
     width: 150px;
-    height: 150px;
 }
 
 #Order-of-King-Roger {
-    content: url(../awards/orders/medals/Order-of-King-Roger.svg);
+    content: url(../awards/orders/medals/Order-of-King-Roger.png);
     width: 150px;
-    height: 150px;
 }
 
 #Order-of-the-Golden-Lion {
-    content: url(../awards/orders/medals/Order-of-the-Golden-Lion.svg);
+    content: url(../awards/orders/medals/Order-of-the-Golden-Lion.png);
     width: 150px;
-    height: 150px;
 }
 
 #Order-of-Queen-Elizabeth {
-    content: url(../awards/orders/medals/Order-of-Queen-Elizabeth.svg);
+    content: url(../awards/orders/medals/Order-of-Queen-Elizabeth.png);
     width: 150px;
-    height: 150px;
 }
 
 #Order-of-Merit {
-    content: url(../awards/orders/medals/Order-of-Merit.svg);
+    content: url(../awards/orders/medals/Order-of-Merit.png);
     width: 150px;
-    height: 150px;
 }
 
 .medusa-yellow {
