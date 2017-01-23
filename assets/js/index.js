@@ -696,6 +696,15 @@ var app = {
                         updateScreen(navTpl + logoTpl + aboutTpl);
                     });
                 },
+                'testers': function () {
+                        var navTpl = medusa.templates.nav({
+                            aboutIsActive: true,
+                            loggedIn: checkIfLoggedIn(),
+                            events: $.jStorage.get('events', [])
+                        });
+                        var testersTpl = medusa.templates.testers();
+                        updateScreen(navTpl + testersTpl);
+                },
                 'setup': function () {
                     var medusaURL = $.jStorage.get('baseURL', 'https://medusa.trmn.org');
                     var navTpl = medusa.templates.nav({

@@ -17,7 +17,8 @@
                                            href="#assignments" aria-expanded="true" aria-controls="#assignments">Assignments</a>
                 </h4>
             </div>
-            <div id="assignments" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingAssignments">
+            <div id="assignments" class="panel-collapse collapse in" role="tabpanel"
+                 aria-labelledby="headingAssignments">
                 <div class="panel-body">
 
                     <div class="row">
@@ -55,22 +56,24 @@
 
             <div class="panel-heading" role="tab" id="headingPeerages">
                 <h4 class="panel-title"><a role="button" data-toggle="collapse" data-parent="#accordian"
-                                           href="#peerages" aria-expanded="true" aria-controls="#peerages">Peerages &
+                                           href="#peerages" aria-expanded="true" aria-controls="#peerages">Awards,
+                    Peerages &
                     Knighthoods</a>
                 </h4>
             </div>
             <div id="peerages" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingAssignments">
                 <div class="panel-body">
+                    {{{userinfo.ribbonrack}}}
                     {{#if userinfo.peerages}}
                         {{#each userinfo.peerages}}
                             <div class="row">
                                 <div class="col-xs-12">
                                     {{#ifvalue this.title value="Knight"}}
                                         <img id="{{this.path}}"
-                                         class="center-block img-responsive">
+                                             class="center-block img-responsive">
                                     {{else}}
                                         <img src="{{../baseurl}}{{this.path}}"
-                                         class="center-block img-responsive filePhoto">
+                                             class="center-block img-responsive filePhoto">
                                     {{/ifvalue}}
 
                                 </div>
@@ -81,12 +84,6 @@
                                 </div>
                             </div>
                         {{/each}}
-                    {{else}}
-                        <div class="row">
-                            <div class="col-xs-12">
-                                None
-                            </div>
-                        </div>
                     {{/if}}
                 </div>
             </div>
