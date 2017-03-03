@@ -121,11 +121,11 @@ var app = {
                     $.support.cors = true;
 
                     var time = $.ajax({
-                        url: oauth.baseUrl + '/oauth/tistig?access_token=' + oauth.access_token + "&client_id=" + oauth.client_id + '&nocache=' + oauth.cache_buster(),
+                        url: oauth.baseUrl + '/oauth/tistig?' + buildQueryParams(),
                         type: "GET",
                         crossDomain: true,
                         cache: false,
-                        headers: {"cache-control": "no-cache"},
+                        headers: buildHeaders(oauth.access_token),
                         async: true
                     });
                     time.done(function (data) {
@@ -154,11 +154,11 @@ var app = {
                     $.support.cors = true;
 
                     var profile = $.ajax({
-                        url: oauth.baseUrl + '/oauth/user?access_token=' + oauth.access_token + "&client_id=" + oauth.client_id + '&nocache=' + oauth.cache_buster(),
+                        url: oauth.baseUrl + '/oauth/user?' + buildQueryParams(),
                         type: "GET",
                         crossDomain: true,
                         cache: false,
-                        headers: {"cache-control": "no-cache"},
+                        headers: buildHeaders(oauth.access_token),
                         async: true
                     });
                     profile.done(function (data) {
@@ -176,13 +176,13 @@ var app = {
                 getScheduledEvents: function () {
                     spinner('Checking for scheduled events');
                     $.support.cors = true;
-                    console.log('End point URL: ' + oauth.baseUrl + '/oauth/events?access_token=' + oauth.access_token + "&client_id=" + oauth.client_id + '&nocache=' + oauth.cache_buster() + '&tz=' + encodeURIComponent(jstz.determine().name()));
+                    console.log('End point URL: ' + oauth.baseUrl + '/oauth/events?' + buildQueryParams() + '&tz=' + encodeURIComponent(jstz.determine().name()));
                     var events = $.ajax({
-                        url: oauth.baseUrl + '/oauth/events?access_token=' + oauth.access_token + "&client_id=" + oauth.client_id + '&nocache=' + oauth.cache_buster() + '&tz=' + encodeURIComponent(jstz.determine().name()),
+                        url: oauth.baseUrl + '/oauth/events?' + buildQueryParams() + '&tz=' + encodeURIComponent(jstz.determine().name()),
                         type: "GET",
                         crossDomain: true,
                         cache: false,
-                        headers: {"cache-control": "no-cache"},
+                        headers: buildHeaders(oauth.access_token),
                         async: true
                     });
 
@@ -204,7 +204,7 @@ var app = {
                         console.log('File system open: ' + fs.name);
 
                         fs.root.getFile('idcard.png', {create: true, exclusive: false}, function (fileEntry) {
-                            var uri = oauth.baseUrl + '/oauth/idcard?access_token=' + oauth.access_token + "&client_id=" + oauth.client_id + '&nocache=' + oauth.cache_buster();
+                            var uri = oauth.baseUrl + '/oauth/idcard?' + buildQueryParams();
                             console.log('Starting download of ' + uri);
 
                             var idcard = new FileTransfer();
@@ -244,11 +244,11 @@ var app = {
                     $.support.cors = true;
 
                     var updatecheck = $.ajax({
-                        url: oauth.baseUrl + '/oauth/lastupdate?access_token=' + oauth.access_token + "&client_id=" + oauth.client_id + '&nocache=' + oauth.cache_buster(),
+                        url: oauth.baseUrl + '/oauth/lastupdate?' + buildQueryParams(),
                         type: "GET",
                         crossDomain: true,
                         cache: false,
-                        headers: {"cache-control": "no-cache"},
+                        headers: buildHeaders(oauth.access_token),
                         async: true
                     });
                     updatecheck.done(function (data) {
@@ -434,7 +434,7 @@ var app = {
                             } else {
                                 e.preventDefault();
                                 spinner('Updating profile');
-                                var url = oauth.baseUrl + '/oauth/updateuser?access_token=' + oauth.access_token + "&client_id=" + oauth.client_id + '&nocache=' + oauth.cache_buster();
+                                var url = oauth.baseUrl + '/oauth/updateuser?' + buildQueryParams();
 
                                 console.log('Posting profile update to ' + url);
                                 var updateProfile = $.ajax({
@@ -442,7 +442,7 @@ var app = {
                                     type: "POST",
                                     crossDomain: true,
                                     cache: false,
-                                    headers: {"cache-control": "no-cache"},
+                                    headers: buildHeaders(oauth.access_token),
                                     async: true,
                                     data: $('#editUser').serialize()
                                 });
@@ -508,7 +508,7 @@ var app = {
                                         type: "GET",
                                         crossDomain: true,
                                         cache: false,
-                                        headers: {"cache-control": "no-cache"},
+                                        headers: buildHeaders(oauth.access_token),
                                         async: true
                                     });
 
@@ -633,11 +633,11 @@ var app = {
                     function (result) {
 
                         var checkin = $.ajax({
-                            url: oauth.baseUrl + '/oauth/checkin?access_token=' + oauth.access_token + "&client_id=" + oauth.client_id + '&nocache=' + oauth.cache_buster() + '&tz=' + encodeURIComponent(jstz.determine().name()) + '&event=' + event_id + '&member=' + result.text,
+                            url: oauth.baseUrl + '/oauth/checkin?' + buildQueryParams() + '&tz=' + encodeURIComponent(jstz.determine().name()) + '&event=' + event_id + '&member=' + result.text,
                             type: "GET",
                             crossDomain: true,
                             cache: false,
-                            headers: {"cache-control": "no-cache"},
+                            headers: buildHeaders(oauth.access_token),
                             async: true
                         });
 
@@ -697,13 +697,13 @@ var app = {
                     });
                 },
                 'testers': function () {
-                        var navTpl = medusa.templates.nav({
-                            aboutIsActive: true,
-                            loggedIn: checkIfLoggedIn(),
-                            events: $.jStorage.get('events', [])
-                        });
-                        var testersTpl = medusa.templates.testers();
-                        updateScreen(navTpl + testersTpl);
+                    var navTpl = medusa.templates.nav({
+                        aboutIsActive: true,
+                        loggedIn: checkIfLoggedIn(),
+                        events: $.jStorage.get('events', [])
+                    });
+                    var testersTpl = medusa.templates.testers();
+                    updateScreen(navTpl + testersTpl);
                 },
                 'setup': function () {
                     var medusaURL = $.jStorage.get('baseURL', 'https://medusa.trmn.org');
@@ -969,6 +969,36 @@ var app = {
                         });
                     }
                 });
+            }
+
+            function buildHeaders(token) {
+                // Build the appropriate headers depending on which version of MEDUSA is being used
+                // {"cache-control": "no-cache", "Authorization": "Bearer " + oauth.access_token},
+
+                var headers = {"cache-control": "no-cache"};
+
+                if (token.length > 100) {
+                    console.log('Adding Authorization header');
+                    var headers = {"cache-control": "no-cache", "Authorization": "Bearer " + token};
+                }
+
+                return headers;
+
+            }
+
+            function buildQueryParams() {
+                // Build the oauth query params depending on what version of MEDUSA is being used
+                // oauth.access_token + "&client_id=" + oauth.client_id + '&nocache=' + oauth.cache_buster()
+
+                var params = "client_id=" + oauth.client_id + '&nocache=' + oauth.cache_buster();
+
+                if (oauth.access_token.length < 100) {
+                    console.log('Adding access_token to query params');
+                    params = "access_token=" + oauth.access_token + "&" + params;
+                }
+
+                return params;
+
             }
         });
     },
