@@ -1,0 +1,37 @@
+{
+    "name": "medusa_mobile",
+    "version": "0.0.5",
+    "description": "Mobile client for the TRMN Medusa Membership Portal",
+    "url": "https://github.com/TRMN/medusa-mobile/issues",
+    "email": "bolthole@trmn.org",
+    "license": "MIT",
+    "repository": "TRMN/medusa-mobile",
+    "devDependencies": {
+        "handlebars": "^4.0.5",
+        "gulp-clean-css": "*",
+        "gulp": "*",
+        "gulp-handlebars": "*",
+        "gulp-wrap": "*",
+        "gulp-declare": "*",
+        "gulp-concat": "*",
+        "gulp-uglify": "*",
+        "cordova-lib": "*",
+        "gulp-watch": "*"
+    },
+    "cordova": {
+        "platforms": [
+            "android",
+            "ios"
+        ],
+        "plugins": {
+            "cordova-custom-config": {},
+            "cordova-plugin-whitelist": {}
+        }
+    },
+    "dependencies": {
+        "cordova-ios": "~4.2.0",
+        "cordova-android": "~5.2.1",
+        "cordova-custom-config": "~3.0.11",
+        "cordova-plugin-whitelist": "1"
+    }
+}
