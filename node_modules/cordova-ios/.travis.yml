@@ -1,0 +1,15 @@
+language: objective-c
+sudo: false
+node_js:
+  - "4.2"
+  - "6.0"
+install:
+    - npm install
+    - npm install ios-deploy
+    - npm install -g codecov
+script:
+    - npm run jshint
+    - npm run e2e-tests
+    - npm run objc-tests
+    - npm run cover
+after_script: codecov

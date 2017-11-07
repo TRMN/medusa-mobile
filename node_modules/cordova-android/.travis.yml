@@ -1,0 +1,12 @@
+language: android
+sudo: false
+install:
+    - npm install
+    - npm install -g codecov
+    - echo y | android update sdk -u --filter android-22,android-23
+script:
+    - npm run jshint
+    - npm run cover
+    - npm run test-build
+after_script:
+    - codecov
