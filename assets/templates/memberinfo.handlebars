@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid" id="profile">
     <div class="row">
         <div class="col-xs-12 text-center">
             <h4 class="medusa-yellow">{{userinfo.greeting}}</h4>
@@ -17,8 +17,16 @@
                                            href="#assignments" aria-expanded="true" aria-controls="#assignments">Assignments</a>
                 </h4>
             </div>
-            <div id="assignments" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingAssignments">
+            <div id="assignments" class="panel-collapse collapse in" role="tabpanel"
+                 aria-labelledby="headingAssignments">
                 <div class="panel-body">
+
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <img class="img-responsive center-block filePhoto" id="branch{{userinfo.branch}}">
+                        </div>
+                    </div>
+
                     <h4 class="medusa-yellow text-center">Primary Assignment</h4>
                     <div class="row">
                         <div class="col-xs-12 text-center">
@@ -48,29 +56,31 @@
 
             <div class="panel-heading" role="tab" id="headingPeerages">
                 <h4 class="panel-title"><a role="button" data-toggle="collapse" data-parent="#accordian"
-                                           href="#peerages" aria-expanded="true" aria-controls="#peerages">Peerages &
+                                           href="#peerages" aria-expanded="true" aria-controls="#peerages">Awards,
+                    Peerages &
                     Knighthoods</a>
                 </h4>
             </div>
             <div id="peerages" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingAssignments">
                 <div class="panel-body">
+                    {{{userinfo.ribbonrack}}}
                     {{#if userinfo.peerages}}
                         {{#each userinfo.peerages}}
                             <div class="row">
                                 <div class="col-xs-12">
-                                    <img src="{{../baseurl}}{{this.path}}"
-                                         class="center-block img-responsive img-circle filePhoto">
+                                    {{#ifvalue this.title value="Knight"}}
+                                        <img id="{{this.path}}"
+                                             class="center-block img-responsive">
+                                    {{else}}
+                                        <img src="{{../baseurl}}{{this.path}}"
+                                             class="center-block img-responsive filePhoto">
+                                    {{/ifvalue}}
+
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-xs-12 text-center">
                                     {{this.fullTitle}}
-                                </div>
-                            </div>
-                        {{else}}
-                            <div class="row">
-                                <div class="col-xs-12">
-                                    None
                                 </div>
                             </div>
                         {{/each}}
@@ -133,6 +143,12 @@
                                     </div>
 
                                 {{/each}}
+                            </div>
+                        </div>
+                    {{else}}
+                        <div class="row">
+                            <div class="col-xs-12">
+                                None
                             </div>
                         </div>
                     {{/if}}

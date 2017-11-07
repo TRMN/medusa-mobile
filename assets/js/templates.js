@@ -4,7 +4,7 @@ this["medusa"]["templates"]["about"] = Handlebars.template({"compiler":[7,">= 4.
     var helper;
 
   return "<div class=\"container-fluid\">\n    <div class=\"row\">\n        <div class=\"col-xs-12\">\n            <h1 class=\"medusa-yellow text-center\">MEDUSA Mobile</h1>\n            <h1 class=\"medusa-yellow text-center\">Version "
-    + container.escapeExpression(((helper = (helper = helpers.version || (depth0 != null ? depth0.version : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"version","hash":{},"data":data}) : helper)))
+    + container.escapeExpression(((helper = (helper = helpers.version || (depth0 != null ? depth0.version : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : {},{"name":"version","hash":{},"data":data}) : helper)))
     + "</h1>\n        </div>\n    </div>\n    <div class=\"row\">\n        <div class=\"col-xs-12\">\n            <p>MEDUSA Mobile is copyright &copy; 2016 The Royal Manticoran Navy: The Official Honor Harrington Fan Association, Inc. Some Rights Reserved. Honor Harrington and all related materials are &copy; David Weber.</p>\n        </div>\n    </div>\n    <div class=\"row\">\n        <div class=\"col-xs-12\">\n            <h2 class=\"text-center medusa-yellow\">MEDUSA Mobile Development Team</h2>\n            <address>Admiral of the Green Sir Robert W. Bulkeley, Jr, KSK,SC, CGM, DSO<br />\n            Fourth Space Lord</address>\n            <p>Surgeon Commodore Sir David Weiner, KSK, GCE<br/>\n            Deputy Fourth Space Lord</p>\n            <p>Captain (JG) Erik Plossl<br />\n            Director of Software Development</p>\n        </div>\n    </div>\n    <div class=\"row\">\n        <div class=\"col-xs-12\">\n            <h2 class=\"text-center medusa-yellow\"><a href=\"testers\" data-navigo>Alpha and Beta Testers List</a></h2>\n        </div>\n    </div>\n    <div class=\"row\">\n        <div class=\"col-xs-12\">\n            <h2 class=\"text-center medusa-yellow\">Special thanks to:</h2>\n            <p>Brian Corchiolo (<a href=\"http://www.bpccreative.com\" target=\"_system\">www.bpccreative.com</a>) and Dougal Campbell (<a href=\"http://dougal.us\" target=\"_system\">dougal.us</a>) for their help hamering this code into shape.</p>\n            <p>A very special thanks to John M. Wargo (<a href=\"http://www.johnwargobooks.com\" target=\"_system\">www.johnwargobooks.com</a>) for his excellent books (<em>Apache Cordova 4 Programming</em> and <em>Apache Cordova API Cookbook</em>) as well as his willingness to answer stupid questions from a new mobile developer.</p>\n        </div>\n    </div>\n\n\n</div>";
 },"useData":true});
 this["medusa"]["templates"]["debug"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data,blockParams) {
@@ -16,7 +16,7 @@ this["medusa"]["templates"]["debug"] = Handlebars.template({"1":function(contain
     + alias2(alias1(blockParams[0][0], depth0))
     + "\n            </div>\n        </div>\n";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data,blockParams) {
-    var stack1, alias1=depth0 != null ? depth0 : (container.nullContext || {});
+    var stack1, alias1=depth0 != null ? depth0 : {};
 
   return "<div class=\"container-fluid\">\n    <div class=\"row\">\n        <div class=\"col-xs-12\">\n            <h1 class=\"medusa-yellow text-center\">MEDUSA Mobile Debug Info</h1>\n        </div>\n    </div>\n    <div class=\"row\">\n        <div class=\"col-xs-12\">\n            <h3 class=\"medusa-yellow text-center\">System Information</h3>\n        </div>\n    </div>\n"
     + ((stack1 = helpers.each.call(alias1,((stack1 = (depth0 != null ? depth0.debugInfo : depth0)) != null ? stack1.systemInfo : stack1),{"name":"each","hash":{},"fn":container.program(1, data, 2, blockParams),"inverse":container.noop,"data":data,"blockParams":blockParams})) != null ? stack1 : "")
@@ -30,32 +30,32 @@ this["medusa"]["templates"]["idcard"] = Handlebars.template({"compiler":[7,">= 4
     var helper;
 
   return "<div class=\"navbar navbar-default navbar-fixed-top\">\n    <a href=\"profile\" data-navigo><img id=\"idcard\" src=\""
-    + container.escapeExpression(((helper = (helper = helpers.imgSrc || (depth0 != null ? depth0.imgSrc : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"imgSrc","hash":{},"data":data}) : helper)))
+    + container.escapeExpression(((helper = (helper = helpers.imgSrc || (depth0 != null ? depth0.imgSrc : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : {},{"name":"imgSrc","hash":{},"data":data}) : helper)))
     + "\"></a>\n</div>";
 },"useData":true});
 this["medusa"]["templates"]["login"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var helper;
 
   return "<div class=\"container-fluid\">\n    <form data-toggle=\"validator\" role=\"form\" id=\"login-form\">\n        <div class=\"form-group has-feedback\">\n            <div class=\"input-group\">\n                <span class=\"input-group-addon fi-at-sign\" id=\"email-addon\"></span>\n                <input type=\"email\" class=\"form-control\" placeholder=\"Email address\" aria-describedby=\"email-addon\"\n                       id=\"email-address\" data-error=\"Invalid email address\" value=\""
-    + container.escapeExpression(((helper = (helper = helpers.username || (depth0 != null ? depth0.username : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"username","hash":{},"data":data}) : helper)))
+    + container.escapeExpression(((helper = (helper = helpers.username || (depth0 != null ? depth0.username : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : {},{"name":"username","hash":{},"data":data}) : helper)))
     + "\" required>\n                <span class=\"glyphicon form-control-feedback\" aria-hidden=\"true\"></span>\n            </div>\n        </div>\n\n        <br/>\n        <div class=\"form-group has-feedback\">\n            <div class=\"input-group\">\n                <span class=\"input-group-addon fi-lock\" id=\"password-addon\"></span>\n                <input type=\"password\" class=\"form-control\" placeholder=\"Password\" aria-describedby=\"password-addon\"\n                       id=\"password\" data-error=\"Please enter your password\" required>\n                <span class=\"glyphicon form-control-feedback\" aria-hidden=\"true\"></span>\n            </div>\n        </div>\n        <br/>\n\n        <button type=\"submit\" class=\"btn btn-default center-block\" id=\"signin-button\"><span class=\"fi-unlock\"></span>\n            Sign in\n        </button>\n        <br /><br />\n        <h4 class=\"text-center\"><em>Not a member yet?  Register <a href=\"signup\" data-navigo>Here!</a></em></h4>\n    </form>\n</div>\n";
 },"useData":true});
 this["medusa"]["templates"]["logo"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var helper;
 
   return "<div class=\"container-fluid\">\n    <div class=\"row\">\n        <div class=\"col-xs-12\">\n            <img class=\"img-responsive center-block "
-    + container.escapeExpression(((helper = (helper = helpers.imgClass || (depth0 != null ? depth0.imgClass : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"imgClass","hash":{},"data":data}) : helper)))
+    + container.escapeExpression(((helper = (helper = helpers.imgClass || (depth0 != null ? depth0.imgClass : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : {},{"name":"imgClass","hash":{},"data":data}) : helper)))
     + "\">\n        </div>\n    </div>\n</div>\n<br/>";
 },"useData":true});
 this["medusa"]["templates"]["memberinfo"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
     var stack1;
 
   return "                        <h4 class=\"medusa-yellow text-center\">Additional Assignments</h4>\n"
-    + ((stack1 = helpers.each.call(depth0 != null ? depth0 : (container.nullContext || {}),((stack1 = (depth0 != null ? depth0.userinfo : depth0)) != null ? stack1.assignment : stack1),{"name":"each","hash":{},"fn":container.program(2, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "");
+    + ((stack1 = helpers.each.call(depth0 != null ? depth0 : {},((stack1 = (depth0 != null ? depth0.userinfo : depth0)) != null ? stack1.assignment : stack1),{"name":"each","hash":{},"fn":container.program(2, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "");
 },"2":function(container,depth0,helpers,partials,data) {
     var stack1;
 
-  return ((stack1 = helpers.unless.call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.primary : depth0),{"name":"unless","hash":{},"fn":container.program(3, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "");
+  return ((stack1 = helpers.unless.call(depth0 != null ? depth0 : {},(depth0 != null ? depth0.primary : depth0),{"name":"unless","hash":{},"fn":container.program(3, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "");
 },"3":function(container,depth0,helpers,partials,data) {
     var alias1=container.lambda, alias2=container.escapeExpression;
 
@@ -67,12 +67,12 @@ this["medusa"]["templates"]["memberinfo"] = Handlebars.template({"1":function(co
 },"5":function(container,depth0,helpers,partials,data,blockParams,depths) {
     var stack1;
 
-  return ((stack1 = helpers.each.call(depth0 != null ? depth0 : (container.nullContext || {}),((stack1 = (depth0 != null ? depth0.userinfo : depth0)) != null ? stack1.peerages : stack1),{"name":"each","hash":{},"fn":container.program(6, data, 0, blockParams, depths),"inverse":container.noop,"data":data})) != null ? stack1 : "");
+  return ((stack1 = helpers.each.call(depth0 != null ? depth0 : {},((stack1 = (depth0 != null ? depth0.userinfo : depth0)) != null ? stack1.peerages : stack1),{"name":"each","hash":{},"fn":container.program(6, data, 0, blockParams, depths),"inverse":container.noop,"data":data})) != null ? stack1 : "");
 },"6":function(container,depth0,helpers,partials,data,blockParams,depths) {
     var stack1;
 
   return "                            <div class=\"row\">\n                                <div class=\"col-xs-12\">\n"
-    + ((stack1 = (helpers.ifvalue || (depth0 && depth0.ifvalue) || helpers.helperMissing).call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.title : depth0),{"name":"ifvalue","hash":{"value":"Knight"},"fn":container.program(7, data, 0, blockParams, depths),"inverse":container.program(9, data, 0, blockParams, depths),"data":data})) != null ? stack1 : "")
+    + ((stack1 = (helpers.ifvalue || (depth0 && depth0.ifvalue) || helpers.helperMissing).call(depth0 != null ? depth0 : {},(depth0 != null ? depth0.title : depth0),{"name":"ifvalue","hash":{"value":"Knight"},"fn":container.program(7, data, 0, blockParams, depths),"inverse":container.program(9, data, 0, blockParams, depths),"data":data})) != null ? stack1 : "")
     + "\n                                </div>\n                            </div>\n                            <div class=\"row\">\n                                <div class=\"col-xs-12 text-center\">\n                                    "
     + container.escapeExpression(container.lambda((depth0 != null ? depth0.fullTitle : depth0), depth0))
     + "\n                                </div>\n                            </div>\n";
@@ -91,10 +91,10 @@ this["medusa"]["templates"]["memberinfo"] = Handlebars.template({"1":function(co
     var stack1;
 
   return "                        <div class=\"panel-group\" id=\"cwAccordian\">\n                            <div class=\"panel panel-default\">\n\n"
-    + ((stack1 = helpers.each.call(depth0 != null ? depth0 : (container.nullContext || {}),((stack1 = (depth0 != null ? depth0.userinfo : depth0)) != null ? stack1.exams : stack1),{"name":"each","hash":{},"fn":container.program(12, data, 2, blockParams),"inverse":container.noop,"data":data,"blockParams":blockParams})) != null ? stack1 : "")
+    + ((stack1 = helpers.each.call(depth0 != null ? depth0 : {},((stack1 = (depth0 != null ? depth0.userinfo : depth0)) != null ? stack1.exams : stack1),{"name":"each","hash":{},"fn":container.program(12, data, 2, blockParams),"inverse":container.noop,"data":data,"blockParams":blockParams})) != null ? stack1 : "")
     + "                            </div>\n                        </div>\n";
 },"12":function(container,depth0,helpers,partials,data,blockParams) {
-    var stack1, alias1=container.lambda, alias2=container.escapeExpression, alias3=depth0 != null ? depth0 : (container.nullContext || {});
+    var stack1, alias1=container.lambda, alias2=container.escapeExpression, alias3=depth0 != null ? depth0 : {};
 
   return "                                    <div class=\"panel-heading\" role=\"tab\" id=\""
     + alias2(alias1(blockParams[0][1], depth0))
@@ -130,7 +130,7 @@ this["medusa"]["templates"]["memberinfo"] = Handlebars.template({"1":function(co
 },"17":function(container,depth0,helpers,partials,data) {
     return "                        <div class=\"row\">\n                            <div class=\"col-xs-12\">\n                                None\n                            </div>\n                        </div>\n";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data,blockParams,depths) {
-    var stack1, alias1=container.lambda, alias2=container.escapeExpression, alias3=depth0 != null ? depth0 : (container.nullContext || {});
+    var stack1, alias1=container.lambda, alias2=container.escapeExpression, alias3=depth0 != null ? depth0 : {};
 
   return "<div class=\"container-fluid\" id=\"profile\">\n    <div class=\"row\">\n        <div class=\"col-xs-12 text-center\">\n            <h4 class=\"medusa-yellow\">"
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.userinfo : depth0)) != null ? stack1.greeting : stack1), depth0))
@@ -163,7 +163,7 @@ this["medusa"]["templates"]["nav"] = Handlebars.template({"1":function(container
 },"5":function(container,depth0,helpers,partials,data) {
     return "Login";
 },"7":function(container,depth0,helpers,partials,data) {
-    var stack1, alias1=depth0 != null ? depth0 : (container.nullContext || {});
+    var stack1, alias1=depth0 != null ? depth0 : {};
 
   return "                    <li class=\"dropdown\">\n                        <a id=\"profile\" href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\"\n                           aria-haspopup=\"true\"\n                           aria-expanded=\"false\"><span class=\"fi-arrow-down\"></span> Profile</a>\n                        <ul class=\"dropdown-menu\">\n                            <li"
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.editIsActive : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
@@ -178,7 +178,7 @@ this["medusa"]["templates"]["nav"] = Handlebars.template({"1":function(container
     var stack1;
 
   return "                    <li class=\"dropdown\">\n                        <a id=\"events\" href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" rolw=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">\n                            <span class=\"fi-arrow-down\"></span> Check Members In</a>\n                        <ul class=\"dropdown-menu\">\n"
-    + ((stack1 = helpers.each.call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.events : depth0),{"name":"each","hash":{},"fn":container.program(11, data, 2, blockParams),"inverse":container.noop,"data":data,"blockParams":blockParams})) != null ? stack1 : "")
+    + ((stack1 = helpers.each.call(depth0 != null ? depth0 : {},(depth0 != null ? depth0.events : depth0),{"name":"each","hash":{},"fn":container.program(11, data, 2, blockParams),"inverse":container.noop,"data":data,"blockParams":blockParams})) != null ? stack1 : "")
     + "                        </ul>\n                    </li>\n";
 },"11":function(container,depth0,helpers,partials,data,blockParams) {
     var stack1, alias1=container.lambda, alias2=container.escapeExpression;
@@ -191,7 +191,7 @@ this["medusa"]["templates"]["nav"] = Handlebars.template({"1":function(container
 },"13":function(container,depth0,helpers,partials,data) {
     return "                    <li><a href=\"logout\" data-navigo>Logout</a></li>\n";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data,blockParams) {
-    var stack1, alias1=depth0 != null ? depth0 : (container.nullContext || {});
+    var stack1, alias1=depth0 != null ? depth0 : {};
 
   return "<nav role=\"navigation\" class=\"navbar navbar-default navbar-fixed-top navbar-inverse\">\n    <div class=\"container\">\n        <!-- Brand and toggle get grouped for better mobile display -->\n        <div class=\"navbar-header\">\n            <button type=\"button\" data-target=\"#navbarCollapse\" data-toggle=\"collapse\" class=\"navbar-toggle\">\n                <span class=\"sr-only\">Toggle navigation</span>\n                <span class=\"icon-bar\"></span>\n                <span class=\"icon-bar\"></span>\n                <span class=\"icon-bar\"></span>\n            </button>\n        </div>\n        <!-- Collection of nav links and other content for toggling -->\n        <div id=\"navbarCollapse\" class=\"collapse navbar-collapse\">\n            <ul class=\"nav navbar-nav\">\n                <li"
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.homeIsActive : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0, blockParams),"inverse":container.noop,"data":data,"blockParams":blockParams})) != null ? stack1 : "")
@@ -217,14 +217,14 @@ this["medusa"]["templates"]["photo"] = Handlebars.template({"compiler":[7,">= 4.
     var helper;
 
   return "<div class=\"container-fluid\">\n    <div class=\"row\">\n        <div class=\"col-xs-12\">\n            <img src=\""
-    + container.escapeExpression(((helper = (helper = helpers.imgSrc || (depth0 != null ? depth0.imgSrc : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"imgSrc","hash":{},"data":data}) : helper)))
+    + container.escapeExpression(((helper = (helper = helpers.imgSrc || (depth0 != null ? depth0.imgSrc : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : {},{"name":"imgSrc","hash":{},"data":data}) : helper)))
     + "\" class=\"center-block img-responsive img-circle filePhoto\">\n        </div>\n    </div>\n</div>";
 },"useData":true});
 this["medusa"]["templates"]["setup"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var helper;
 
   return "<div class=\"container-fluid\">\n    <h1 class=\"medusa-yellow text-center\">MEDUSA Server URL</h1>\n    <p><strong><span class=\"alert-warning\">WARNING!</span> Do not change this entry unless you know what you are doing or have\n    been instructed to do so by a member of the MEDUSA Mobile Development Team.  Changing the URL of the MEDUSA server\n    to an incorrect value will prevent MEDUSA Mobile from working!</strong></p>\n\n    <div class=\"input-group\">\n        <span class=\"input-group-addon fi-home\" id=\"server-addon\"></span>\n        <input type=\"text\" class=\"form-control\" placeholder=\"https://medusa.trmn.org\" aria-describedby=\"server-addon\" id=\"server-url\" value=\""
-    + container.escapeExpression(((helper = (helper = helpers.url || (depth0 != null ? depth0.url : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"url","hash":{},"data":data}) : helper)))
+    + container.escapeExpression(((helper = (helper = helpers.url || (depth0 != null ? depth0.url : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : {},{"name":"url","hash":{},"data":data}) : helper)))
     + "\">\n    </div>\n    <br />\n    <button type=\"submit\" id=\"save-setup\" class=\"btn btn-default center-block\"><span class=\"fi-save\"></span> Save</button>\n</div>";
 },"useData":true});
 this["medusa"]["templates"]["signup"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
@@ -247,14 +247,14 @@ this["medusa"]["templates"]["signup"] = Handlebars.template({"1":function(contai
   return "                            <option value=\""
     + alias2(alias1(blockParams[0][1], depth0))
     + "\""
-    + ((stack1 = (helpers.ifvalue || (depth0 && depth0.ifvalue) || helpers.helperMissing).call(depth0 != null ? depth0 : (container.nullContext || {}),blockParams[0][1],{"name":"ifvalue","hash":{"value":((stack1 = (depth0 != null ? depth0.userInfo : depth0)) != null ? stack1.country : stack1)},"fn":container.program(12, data, 0, blockParams),"inverse":container.noop,"data":data,"blockParams":blockParams})) != null ? stack1 : "")
+    + ((stack1 = (helpers.ifvalue || (depth0 && depth0.ifvalue) || helpers.helperMissing).call(depth0 != null ? depth0 : {},blockParams[0][1],{"name":"ifvalue","hash":{"value":((stack1 = (depth0 != null ? depth0.userInfo : depth0)) != null ? stack1.country : stack1)},"fn":container.program(12, data, 0, blockParams),"inverse":container.noop,"data":data,"blockParams":blockParams})) != null ? stack1 : "")
     + ">"
     + alias2(alias1(blockParams[0][0], depth0))
     + "</option>\n";
 },"12":function(container,depth0,helpers,partials,data) {
     return "\n                                    selected";
 },"14":function(container,depth0,helpers,partials,data,blockParams) {
-    var stack1, alias1=depth0 != null ? depth0 : (container.nullContext || {});
+    var stack1, alias1=depth0 != null ? depth0 : {};
 
   return "            <fieldset>\n                <legend>Branch and Chapter</legend>\n\n                <div class=\"form-group has-feedback\">\n                    <div class=\"input-group vertical-align\">\n                        <label class=\"col-xs-4\">Branch</label>\n                        <select class=\"form-control required selectpicker\" name=\"branch\" required\n                                data-error=\"You must choose a branch\">\n"
     + ((stack1 = helpers.each.call(alias1,(depth0 != null ? depth0.branches : depth0),{"name":"each","hash":{},"fn":container.program(15, data, 2, blockParams),"inverse":container.noop,"data":data,"blockParams":blockParams})) != null ? stack1 : "")
@@ -270,7 +270,7 @@ this["medusa"]["templates"]["signup"] = Handlebars.template({"1":function(contai
     + alias2(alias1(blockParams[0][0], depth0))
     + "</option>\n";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data,blockParams) {
-    var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3=container.escapeExpression, alias4=container.lambda;
+    var stack1, helper, alias1=depth0 != null ? depth0 : {}, alias2=helpers.helperMissing, alias3=container.escapeExpression, alias4=container.lambda;
 
   return ((stack1 = (helpers.ifvalue || (depth0 && depth0.ifvalue) || alias2).call(alias1,(depth0 != null ? depth0.formId : depth0),{"name":"ifvalue","hash":{"value":"signup"},"fn":container.program(1, data, 0, blockParams),"inverse":container.program(3, data, 0, blockParams),"data":data,"blockParams":blockParams})) != null ? stack1 : "")
     + "<div class=\"container-fluid\">\n    <form id=\""
