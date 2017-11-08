@@ -16,7 +16,6 @@
    under the License.
 */
 
-include ":"
+include ':app'
 include ":CordovaLib"
 project(':CordovaLib').projectDir = new File('../framework')
-

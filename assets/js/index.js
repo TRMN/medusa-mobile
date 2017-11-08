@@ -224,7 +224,8 @@ var app = {
                                     console.log("download error target " + error.target);
                                     console.log("upload error code" + error.code);
                                 },
-                                false
+                                false,
+                                {headers: buildHeaders(oauth.access_token)}
                             );
 
                         }, function () {

@@ -1,37 +1,66 @@
 {
-    "name": "medusa_mobile",
-    "version": "0.0.5",
-    "description": "Mobile client for the TRMN Medusa Membership Portal",
-    "url": "https://github.com/TRMN/medusa-mobile/issues",
-    "email": "bolthole@trmn.org",
-    "license": "MIT",
-    "repository": "TRMN/medusa-mobile",
-    "devDependencies": {
-        "handlebars": "^4.0.5",
-        "gulp-clean-css": "*",
-        "gulp": "*",
-        "gulp-handlebars": "*",
-        "gulp-wrap": "*",
-        "gulp-declare": "*",
-        "gulp-concat": "*",
-        "gulp-uglify": "*",
-        "cordova-lib": "*",
-        "gulp-watch": "*"
-    },
-    "cordova": {
-        "platforms": [
-            "android",
-            "ios"
-        ],
-        "plugins": {
-            "cordova-custom-config": {},
-            "cordova-plugin-whitelist": {}
-        }
-    },
-    "dependencies": {
-        "cordova-ios": "~4.2.0",
-        "cordova-android": "~5.2.1",
-        "cordova-custom-config": "~3.0.11",
-        "cordova-plugin-whitelist": "1"
+  "name": "medusa_mobile",
+  "version": "0.0.5",
+  "description": "Mobile client for the TRMN Medusa Membership Portal",
+  "url": "https://github.com/TRMN/medusa-mobile/issues",
+  "email": "bolthole@trmn.org",
+  "license": "MIT",
+  "repository": "TRMN/medusa-mobile",
+  "devDependencies": {
+    "handlebars": "^4.0.5",
+    "gulp-clean-css": "*",
+    "gulp": "*",
+    "gulp-handlebars": "*",
+    "gulp-wrap": "*",
+    "gulp-declare": "*",
+    "gulp-concat": "*",
+    "gulp-uglify": "*",
+    "cordova-lib": "*",
+    "gulp-watch": "*"
+  },
+  "cordova": {
+    "platforms": [
+      "android",
+      "ios"
+    ],
+    "plugins": {
+      "cordova-custom-config": {},
+      "cordova-plugin-whitelist": {},
+      "cordova-plugin-device": {},
+      "cordova-plugin-console": {},
+      "cordova-plugin-camera": {},
+      "cordova-plugin-inappbrowser": {},
+      "cordova-plugin-dialogs": {},
+      "cordova-plugin-app-version": {},
+      "cordova-plugin-android-permissions": {},
+      "cordova-plugin-spinner": {},
+      "cordova-plugin-file-transfer": {},
+      "cordova-plugin-statusbar": {},
+      "cordova-plugin-splashscreen": {},
+      "cordova-plugin-screen-orientation": {},
+      "phonegap-plugin-barcodescanner": {
+        "CAMERA_USAGE_DESCRIPTION": "To scan barcodes and take profile pictures"
+      }
     }
+  },
+  "dependencies": {
+    "cordova-android": "6.3.0",
+    "cordova-custom-config": "~3.0.11",
+    "cordova-ios": "^4.5.3",
+    "cordova-plugin-android-permissions": "~0.10.0",
+    "cordova-plugin-app-version": "~0.1.9",
+    "cordova-plugin-camera": "~2.2.0",
+    "cordova-plugin-console": "~1.0.3",
+    "cordova-plugin-device": "~1.1.2",
+    "cordova-plugin-dialogs": "~1.2.1",
+    "cordova-plugin-file-transfer": "~1.5.1",
+    "cordova-plugin-inappbrowser": "~1.4.0",
+    "cordova-plugin-screen-orientation": "~1.4.2",
+    "cordova-plugin-spinner": "~1.1.0",
+    "cordova-plugin-splashscreen": "~3.2.2",
+    "cordova-plugin-statusbar": "~2.1.3",
+    "cordova-plugin-whitelist": "1",
+    "jscs": "^3.0.7",
+    "phonegap-plugin-barcodescanner": "https://github.com/jlowe234/phonegap-plugin-barcodescanner.git"
+  }
 }

@@ -18,44 +18,41 @@
 # under the License.
 #
 -->
-# Android Native Tests
 
-These tests are designed to verify Android native features and other Android specific features.
+# Cordova Android Test Project
 
-## Initial Setup
+The project in this directory is an Android Test project that enables those
+interested in further developing cordova-android to validate their changes.
 
-### Setting env vars
+## Requirements
 
-Run:
+The requirements in the [top-level README](../README.md) still apply. In
+addition, ensure you have installed Gradle, and that it is (at the time of this
+writing) at least version 3.3 or newer.
 
-    ../bin/check_reqs
+## Getting Started
 
-Use the output to set your `ANDROID_HOME` and `JAVA_HOME` environment variables.
+You can run this test project from both the command line as well as from
+Android Studio.
 
-### Adding `gradlew`
+### Command Line
 
-Copy it from a freshly created project:
+Ensure you have the gradle wrapper script, `gradlew`, in this directory. If
+you do not, you can run the following to generate it:
 
-    ../bin/create foo
-    (cd foo && cordova/build --gradle; cp -r gradlew gradle ..)
-    rm -r foo
+    $ cd cordova-android/test
+    $ gradle :wrapper -b build.gradle
 
-## Running
+You can then see a list of all tasks available to run with `gradlew tasks`.
 
-To run manual tests:
+The two different kinds of tests one typically wants to run are unit tests and
+end-to-end, or instrumented, tests. Unit tests do not require any particular
+environment to run in, but the instrumented tests, however, require a connected
+Android device or emulator to run in.
 
-    ./gradlew installDebug
+To run the unit tests, run: `gradlew test`.
+To run the instrumented tests, run: `gradlew connectedAndroidTest`.
 
-To run unit tests:
+### Android Studio
 
-    ./gradlew connectedAndroidTest
-
-`BUILD SUCCESSFUL` means that the tests all passed :)
-
-## Android Studio
-
-1. Use "Import Project" and import the `test` directory.
-2. Right click on the `org.apache.cordova.test` package on the left-hand nav.
-3. Select `Create Run Configuration` -> `Tests in ...` (The one with the Android icon)
-4. Review options (mainly - target device)
-5. Click the bug icon in the top toolbar to run with debugger attached
+Import this `test/` directory into Android Studio, and hit the Play button.

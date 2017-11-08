@@ -95,23 +95,44 @@
     return [[self class] filterUrl:url intentsWhitelist:self.allowIntentsWhitelist navigationsWhitelist:self.allowNavigationsWhitelist];
 }
 
-- (BOOL)shouldOverrideLoadWithRequest:(NSURLRequest*)request navigationType:(UIWebViewNavigationType)navigationType
++ (BOOL)shouldOpenURLRequest:(NSURLRequest*)request navigationType:(UIWebViewNavigationType)navigationType
+{
+    return (UIWebViewNavigationTypeLinkClicked == navigationType ||
+        (UIWebViewNavigationTypeOther == navigationType &&
+         [[request.mainDocumentURL absoluteString] isEqualToString:[request.URL absoluteString]]
+         )
+        );
+}
+
++ (BOOL)shouldOverrideLoadWithRequest:(NSURLRequest*)request navigationType:(UIWebViewNavigationType)navigationType filterValue:(CDVIntentAndNavigationFilterValue)filterValue
 {
     NSString* allowIntents_whitelistRejectionFormatString = @"ERROR External navigation rejected - <allow-intent> not set for url='%@'";
     NSString* allowNavigations_whitelistRejectionFormatString = @"ERROR Internal navigation rejected - <allow-navigation> not set for url='%@'";
     
     NSURL* url = [request URL];
-    CDVIntentAndNavigationFilterValue filterValue = [self filterUrl:url];
     
     switch (filterValue) {
         case CDVIntentAndNavigationFilterValueNavigationAllowed:
             return YES;
         case CDVIntentAndNavigationFilterValueIntentAllowed:
-            // only allow-intent if it's a UIWebViewNavigationTypeLinkClicked (anchor tag)
-            if (UIWebViewNavigationTypeLinkClicked == navigationType) {
+            // only allow-intent if it's a UIWebViewNavigationTypeLinkClicked (anchor tag) OR
+            // it's a UIWebViewNavigationTypeOther, and it's an internal link
+            if ([[self class] shouldOpenURLRequest:request navigationType:navigationType]){
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 100000
+                // CB-11895; openURL with a single parameter is deprecated in iOS 10
+                // see https://useyourloaf.com/blog/openurl-deprecated-in-ios10
+                if ([[UIApplication sharedApplication] respondsToSelector:@selector(openURL:options:completionHandler:)]) {
+                    [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
+                } else {
+                    [[UIApplication sharedApplication] openURL:url];
+                }
+#else
+                // fall back if on older SDK
                 [[UIApplication sharedApplication] openURL:url];
+#endif
             }
-            // consume the request (i.e. no error) if it wasn't a UIWebViewNavigationTypeLinkClicked
+            
+            // consume the request (i.e. no error) if it wasn't handled above
             return NO;
         case CDVIntentAndNavigationFilterValueNoneAllowed:
             // allow-navigation attempt failed for sure
@@ -122,6 +143,11 @@
             }
             return NO;
     }
+}
+
+- (BOOL)shouldOverrideLoadWithRequest:(NSURLRequest*)request navigationType:(UIWebViewNavigationType)navigationType
+{
+    return [[self class] shouldOverrideLoadWithRequest:request navigationType:navigationType filterValue:[self filterUrl:request.URL]];
 }
 
 @end
