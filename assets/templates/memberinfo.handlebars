@@ -181,6 +181,16 @@
                             <span id="tis">{{userinfo.tis}}</span>
                         </div>
                     </div>
+                    {{#if userinfo.promotionPoints}}
+                        <div class="row">
+                            <div class="col-xs-6 text-left">
+                                <span><strong>Promotion Points:</strong></span>
+                            </div>
+                            <div class="col-xs-6 text-left">
+                                <span id="tis">{{userinfo.promotionPoints}}</span>
+                            </div>
+                        </div>
+                    {{/if}}
                 </div>
             </div>
         </div>

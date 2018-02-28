@@ -670,7 +670,10 @@ var app = {
 
             spinner('Please Wait');
 
-            var router = new Navigo();
+            var root = null;
+            var useHash = true;
+            var hash = '#';
+            var router = new Navigo(root, useHash, hash);
             var logoTpl = medusa.templates.logo({imgClass: 'project-medusa'});
 
             function checkIfLoggedIn() {
@@ -686,6 +689,7 @@ var app = {
 
             router.on({
                 'about': function () {
+                    console.log('About clicked');
                     cordova.getAppVersion.getVersionNumber().then(function (version) {
                         var AppVersion = version;
                         var navTpl = medusa.templates.nav({
@@ -698,6 +702,7 @@ var app = {
                     });
                 },
                 'testers': function () {
+                    console.log('Testers clicked');
                     var navTpl = medusa.templates.nav({
                         aboutIsActive: true,
                         loggedIn: checkIfLoggedIn(),
@@ -707,6 +712,7 @@ var app = {
                     updateScreen(navTpl + testersTpl);
                 },
                 'setup': function () {
+                    console.log('Setup clicked');
                     var medusaURL = $.jStorage.get('baseURL', 'https://medusa.trmn.org');
                     var navTpl = medusa.templates.nav({
                         setupIsActive: true,
@@ -736,6 +742,7 @@ var app = {
                     scan();
                 },
                 'logout': function () {
+                    console.log('Logout clicked');
                     $.jStorage.deleteKey('userInfo');
                     $.jStorage.deleteKey('idCardUri');
                     console.log('Deleting tokens in logout function');
@@ -758,9 +765,11 @@ var app = {
                     router.navigate('home');
                 },
                 'refresh': function () {
+                    console.log('Refresh clicked');
                     oauth.getUserInfo();
                 },
                 'debug': function () {
+                    console.log('Debug clicked');
                     var navTpl = medusa.templates.nav({
                         debugIsActive: true,
                         loggedIn: checkIfLoggedIn(),

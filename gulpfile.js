@@ -59,7 +59,7 @@ gulp.task('templates', function () {
             namespace: 'medusa.templates',
             noRedeclare: true // Avoid duplicate declarations
         }))
-        .pipe(concat('templates.js'))
+        .pipe(concat('09-templates.js'))
         .pipe(gulp.dest('assets/js/'));
 });
 
